@@ -1,0 +1,1122 @@
+type: collection.insomnia.rest/5.0
+name: SAE
+meta:
+  id: wrk_86f551c5f0f0441e8dd80e8d56a4fd59
+  created: 1744545102245
+  modified: 1744548390373
+collection:
+  - name: Client
+    meta:
+      id: fld_c70f4b457e2d4772b5df0c75fa07cc54
+      created: 1744545112326
+      modified: 1744548390358
+      sortKey: -1744545112326
+    children:
+      - url: http://127.0.0.1:8000/api/clients
+        name: Client store
+        meta:
+          id: req_511d6c1e5a244e088688051d077342cd
+          created: 1744550539566
+          modified: 1745593337653
+          isPrivate: false
+          sortKey: -1744550539566
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "nom_client": "Simon",
+              "prenom_client": "Morel",
+              "num_rue_client": "42",
+              "nom_rue_client": "une rue",
+              "code_postal_client": "75001",
+              "ville_client": "Paris",
+              "pays_client": "France",
+              "tel_client": "0612345678",
+              "email_client": "simon.morel@gmail.com",
+            	"date_naissance_client": "1992-03-15 14:30:00"
+            }
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_96b3a469c9994bda8b17da9051acc238
+          - id: pair_0e056e323f6c4c68bfa99aa8f0e9b38c
+            name: Content-Type
+            value: application/json
+            disabled: false
+        authentication:
+          type: none
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/clients
+        name: Client index
+        meta:
+          id: req_7ef95808e0c7447db3470071a7b8b476
+          created: 1744556278064
+          modified: 1744804998082
+          isPrivate: false
+          sortKey: -1744556278064
+        method: GET
+        body:
+          mimeType: application/json
+          text: |-2
+             {
+            	 
+             }
+        parameters:
+          - disabled: true
+            id: pair_83a1a4cf558347148f1215b09ecb7b55
+            name: email
+            value: example.com
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: 54|emkpOQgjKkrqbfchRbNyIMTiFefA5eikj6XpbvSA9f67b2f5
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/clients/2
+        name: Client show
+        meta:
+          id: req_0c788d67ac424a3bb659c09dd1959f53
+          created: 1744557617130
+          modified: 1744805260525
+          isPrivate: false
+          sortKey: -1744557617130
+        method: GET
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: 54|emkpOQgjKkrqbfchRbNyIMTiFefA5eikj6XpbvSA9f67b2f5
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/clients/2
+        name: Client Update
+        meta:
+          id: req_c3ef7271d7574776b513323efaf6e57a
+          created: 1744557874503
+          modified: 1745593315908
+          isPrivate: false
+          sortKey: -1744557874503
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "nom_client": "Morel",
+              "prenom_client": "Simon",
+              "num_rue_client": "42",
+              "nom_rue_client": "une rue",
+              "code_postal_client": "75001",
+              "ville_client": "Paris",
+              "pays_client": "France",
+              "tel_client": "0612345678",
+              "email_client": "simon.morel@example.com",
+            	"date_naissance_client": "1992-03-15 14:30:00"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 2|H6ovlrLxfqEZdBSbMgh21LG8fDkeoXvtoiP9JiEP9811fb0e
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/clients/user/5
+        name: Client User
+        meta:
+          id: req_4a1a827d7dbc40c0ab41432c57750ef9
+          created: 1745150728389
+          modified: 1745150837277
+          isPrivate: false
+          sortKey: -1745150728389
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 58|UohPSvAUg0BeNT4EMC2VKVutvPswmLZjV1WsIqDwbbbaf320
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/check-email/benjamincornet@gmail.com
+        name: Client email check
+        meta:
+          id: req_403a68c579a5481bb4d5866184cc73d6
+          created: 1745309035084
+          modified: 1745311274201
+          isPrivate: false
+          sortKey: -1745309035084
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Voiture
+    meta:
+      id: fld_818f7c2e17204aa88b1577f0e799fb61
+      created: 1744545119401
+      modified: 1744548390346
+      sortKey: -1744545119402
+    children:
+      - url: http://127.0.0.1:8000/api/voitures/agence/1
+        name: Voiture agence
+        meta:
+          id: req_d4815c4ee9cf4cf78321e674a7d2df3e
+          created: 1744548221132
+          modified: 1744762691425
+          isPrivate: false
+          sortKey: -1744548221132
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 1|GKdFbrx3zldd2Wviz5ZyrFONPyvYDJVF9X8Z2coj4f674243
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/voitures
+        name: Voiture index
+        meta:
+          id: req_12ae00c5f7cf479c8e4d88192638bfbf
+          created: 1744548276932
+          modified: 1745081981294
+          isPrivate: false
+          sortKey: -1744548276932
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 1|xvwki6LMBmFBcAofncPJiQNIGCxWJj4Mg5tsP5bQ71dcd54c
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Option
+    meta:
+      id: fld_d1997382c2724292abf9a04d6b916b71
+      created: 1744545125626
+      modified: 1744548390360
+      sortKey: -1744545125626
+    children:
+      - url: http://127.0.0.1:8000/api/options
+        name: Option index
+        meta:
+          id: req_2d6f962048e14562832f619a46002ca8
+          created: 1744548782708
+          modified: 1745107693359
+          isPrivate: false
+          sortKey: -1744548782708
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 48|DDubwMjRhQ2kP0a0qY4YJN4j4iQbcKmOTA5wTOg9184a8239
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Garantie
+    meta:
+      id: fld_97f7cde921d24814b791774d8e4327a2
+      created: 1744545130589
+      modified: 1744548390351
+      sortKey: -1744545130589
+    children:
+      - url: http://127.0.0.1:8000/api/garanties
+        name: Garantie index
+        meta:
+          id: req_4469feff053c47e086ebe26787ed2908
+          created: 1744548729820
+          modified: 1745107073257
+          isPrivate: false
+          sortKey: -1744548729820
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 46|CKzvQyEG8lT8rfvRdjLo3ArkBBNT0db28wfmypvI45013074
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Categorie
+    meta:
+      id: fld_bfda94f0f413469e93c0e42303fd0bd6
+      created: 1744545142723
+      modified: 1744548390355
+      sortKey: -1744545142723
+    children:
+      - url: http://127.0.0.1:8000/api/categories
+        name: Categorie index
+        meta:
+          id: req_314cc649de53466b890c21663f447f3c
+          created: 1744548631295
+          modified: 1745176236032
+          isPrivate: false
+          sortKey: -1744548631295
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 74|5ISc6SqZpixNjAiOCNyIRFVQdJ8TKnZnyWGeHk04fef9b65b
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Auth
+    meta:
+      id: fld_f4366522087344a797e66480d5e08559
+      created: 1744545147934
+      modified: 1745110786803
+      sortKey: -1744545147934
+    children:
+      - url: http://127.0.0.1:8000/api/login
+        name: Login
+        meta:
+          id: req_8a149073f35143e7a8547e5e410b7c81
+          created: 1744545399714
+          modified: 1744811045454
+          isPrivate: false
+          sortKey: -1744545399714
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nom" : "robert",
+            	"prenom" : "duchmol",
+            	"email" : "robert.duchmol@domain.fr",
+            	"password" : "GrosSecret123"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/register
+        name: Register
+        meta:
+          id: req_cbd589a368f9420ca1b0e081abde70af
+          created: 1744545569692
+          modified: 1745593238497
+          isPrivate: false
+          sortKey: -1744545569692
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "nom_client": "Cornet",
+              "prenom_client": "Benjamin",
+              "tel_client": "0123456789",
+              "code_postal_client": "75000",
+              "ville_client": "Paris",
+              "pays_client": "France",
+              "nom_rue_client": "Rue Exemple",
+              "num_rue_client": "123",
+              "email_client": "cornetbenjamin@gmail.com",
+              "date_naissance_client": "1990-01-01",
+              "password": "GrosSecret1#"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/logout
+        name: Logout
+        meta:
+          id: req_90579e9d42894d53b5d409205b406267
+          created: 1744549259387
+          modified: 1744632759659
+          isPrivate: false
+          sortKey: -1744549259387
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 5|B49aRBkyYGMlNyZbYoZbUz8ONPDdCC7a9oXpoG0w9daa98ea
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/me
+        name: me
+        meta:
+          id: req_39deea93e3444bf089537e48052d01fe
+          created: 1744549823878
+          modified: 1744550431620
+          isPrivate: false
+          sortKey: -1744549823878
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 3|lnKXmf0Pjvxl8ACyEpeoFRY0jUf1GQRpJYhVmiNp4d929a55
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/refresh
+        name: refresh
+        meta:
+          id: req_8154ba2b76b246b694576f8dc3277281
+          created: 1744550129502
+          modified: 1744550431620
+          isPrivate: false
+          sortKey: -1744550129502
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 3|lnKXmf0Pjvxl8ACyEpeoFRY0jUf1GQRpJYhVmiNp4d929a55
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Agence
+    meta:
+      id: fld_9c09c3f737d3433d8f1cf1c70391132e
+      created: 1744548853378
+      modified: 1744549114354
+      sortKey: -1744548853378
+    children:
+      - url: http://127.0.0.1:8000/api/agences
+        name: Agence index
+        meta:
+          id: req_31a785dda4804566b5dd114f9c93b3bd
+          created: 1744548857073
+          modified: 1744762691425
+          isPrivate: false
+          sortKey: -1744548857074
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 1|GKdFbrx3zldd2Wviz5ZyrFONPyvYDJVF9X8Z2coj4f674243
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Facturation
+    meta:
+      id: fld_ca0335ccacbb4d48b5915723345e762c
+      created: 1744558038798
+      modified: 1744981833695
+      sortKey: -1744545117633
+    children:
+      - url: http://127.0.0.1:8000/api/clients/1/facturation
+        name: Create Facturaction Client
+        meta:
+          id: req_dfd4dfd17a0b4009b41fe26763bf1358
+          created: 1744558088647
+          modified: 1744982160142
+          isPrivate: false
+          sortKey: -1744558088647
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+                "nom_rue_client": "123 Rue Exemple",
+                "num_rue_client": "123",
+                "code_postal_client": "75001",
+                "ville_client": "Paris",
+                "pays_client": "France"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 1|ARR7GmdHEngz9jracV49jSFRzlKWPhrfD4991k40cf582631
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/clients/1/facturation
+        name: Update Facturation Client
+        meta:
+          id: req_4ccbc63bf29440199f1cbe6130538bdf
+          created: 1744560528533
+          modified: 1745593271838
+          isPrivate: false
+          sortKey: -1744560528533
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |
+            {
+                "nom_rue_client": "123 Rue Exemple",
+                "num_rue_client": "123",
+                "code_postal_client": "75001",
+                "ville_client": "Paris",
+                "pays_client": "France"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 1|YUJLGeZsumG290mZ4UNb53ShbE17oQIXupV0gvlA00a6af1d
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Permis
+    meta:
+      id: fld_c0ac7a4543d247cc872f40ef8c0a3f48
+      created: 1744558044168
+      modified: 1744558060691
+      sortKey: -1744545115864
+    children:
+      - url: http://127.0.0.1:8000/api/clients/1/conducteur
+        name: Create Permis Client
+        meta:
+          id: req_7724a773c24a4397b71c14640c7dbfe7
+          created: 1744558097748
+          modified: 1744922393198
+          isPrivate: false
+          sortKey: -1744558097748
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+                "num_permis_client": "123456789",
+                "date_permis_client": "2015-06-15",
+                "pays_permis_client": "France",
+                "date_naissance_client": "1995-04-10"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 15|ypXblK628QOtUiTEsuAX6NNFelVcpqMKmzkhG0hcbe239ffb
+          disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/clients/1/conducteur
+        name: Update Permis Client
+        meta:
+          id: req_d833edd0c12540ef863883d900dd9de1
+          created: 1744560554399
+          modified: 1744561077074
+          isPrivate: false
+          sortKey: -1744560554399
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |
+            {
+                "num_permis_client": "123456798",
+                "date_permis_client": "2016-06-15",
+                "pays_permis_client": "France",
+                "date_naissance_client": "1995-04-10"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 1|YUJLGeZsumG290mZ4UNb53ShbE17oQIXupV0gvlA00a6af1d
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Reservation
+    meta:
+      id: fld_4694ca42a330494bbf21b0024b0bfef4
+      created: 1744568528563
+      modified: 1744632759659
+      sortKey: -1744568528563
+    children:
+      - name: Show
+        meta:
+          id: fld_5b968d1d86b94f56a44c1328c82712ff
+          created: 1744727560301
+          modified: 1744762691424
+          sortKey: -1744727560301
+        children:
+          - url: http://127.0.0.1:8000/api/reservations/1
+            name: Show Reservation
+            meta:
+              id: req_aba81dcbbef84e50b0505c152a7ee4cd
+              created: 1744726021994
+              modified: 1744762691424
+              isPrivate: false
+              sortKey: -1744727566918
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.2
+            authentication:
+              token: 1|UdvmleRPfCfZBZHtgXStd7btpktJu6t10WiXislOb59a3297
+              type: bearer
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8000/api/reservations/client/1
+            name: Show Reservation (par client)
+            meta:
+              id: req_2d59102fb8cd475987ccfed0b954bc39
+              created: 1744726978445
+              modified: 1744762691424
+              isPrivate: false
+              sortKey: -1744727566718
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.2
+            authentication:
+              token: 1|UdvmleRPfCfZBZHtgXStd7btpktJu6t10WiXislOb59a3297
+              type: bearer
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8000/api/reservations/voiture/1
+            name: Show Reservation (par voiture)
+            meta:
+              id: req_90116fb12309430ba16ee1969b135294
+              created: 1744727155471
+              modified: 1744762691424
+              isPrivate: false
+              sortKey: -1744727566818
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.2
+            authentication:
+              token: 1|UdvmleRPfCfZBZHtgXStd7btpktJu6t10WiXislOb59a3297
+              type: bearer
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: http://127.0.0.1:8000/api/reservations/agence/3
+            name: Show Reservation (par agence)
+            meta:
+              id: req_36d44b7ae0034ba6ba0c31762e912cac
+              created: 1744727630737
+              modified: 1744762691424
+              isPrivate: false
+              sortKey: -1744727247991.875
+            method: GET
+            headers:
+              - name: User-Agent
+                value: insomnia/11.0.2
+            authentication:
+              token: 1|UdvmleRPfCfZBZHtgXStd7btpktJu6t10WiXislOb59a3297
+              type: bearer
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - url: http://127.0.0.1:8000/api/reservations
+        name: Index Reservation
+        meta:
+          id: req_464fdfc3ce944183877e24a4a670b9ad
+          created: 1744568534995
+          modified: 1745081941321
+          isPrivate: false
+          sortKey: -1744568534995
+        method: GET
+        parameters:
+          - disabled: false
+            id: pair_f06ac1fc64004187aee14583e1cc7164
+            name: client_id
+            value: "1"
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 1|xvwki6LMBmFBcAofncPJiQNIGCxWJj4Mg5tsP5bQ71dcd54c
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/reservations
+        name: Store Reservation
+        meta:
+          id: req_dd67d1fe052e492786bb429be4ed652a
+          created: 1744568885481
+          modified: 1745582609023
+          isPrivate: false
+          sortKey: -1744568885481
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "liste_location": [
+                {
+                  "id": 1,
+                  "designation": "Locations véhicule principal",
+                  "montant": 80.50
+                },
+                {
+                  "id": 2,
+                  "designation": "Option GPS",
+                  "montant": 10.00
+                },
+                {
+                  "id": 3,
+                  "designation": "Option siège enfant",
+                  "montant": 10.00
+                }
+              ],
+              "debut_location": "2023-10-01",
+              "fin_location": "2024-10-10",
+              "client_id": 1,
+            	"categorie_id": 1,
+              "garantie_id": 1,
+            	"agence_id": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.1
+        authentication:
+          token: 6|DKJQ1N6dNcVrw0zhHpAYBQhI3hi5ipyFVPc9VhsG5f67091c
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/reservations/1
+        name: Update Reservation
+        meta:
+          id: req_a3a052ba427c4a77be36196e890c7d60
+          created: 1744726460477
+          modified: 1745593203611
+          isPrivate: false
+          sortKey: -1744726460477
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "liste_location": [
+                {
+                  "id": 1,
+                  "designation": "Locations véhicule principal",
+                  "montant": 80.50
+                },
+                {
+                  "id": 2,
+                  "designation": "Option GPS",
+                  "montant": 10.00
+                },
+                {
+                  "id": 3,
+                  "designation": "Option siège enfant",
+                  "montant": 10.00
+                }
+              ],
+              "debut_location": "2023-10-01",
+              "fin_location": "2024-10-10",
+              "client_id": 1,
+            	"categorie_id": 1,
+              "garantie_id": 1,
+            	"agence_id": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: 1|xvwki6LMBmFBcAofncPJiQNIGCxWJj4Mg5tsP5bQ71dcd54c
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/reservations/annule/1
+        name: Cancel Reservation
+        meta:
+          id: req_57ea11eac47c41cf820ea71c711090d6
+          created: 1744726781728
+          modified: 1744762691424
+          isPrivate: false
+          sortKey: -1744726781728
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: 1|UdvmleRPfCfZBZHtgXStd7btpktJu6t10WiXislOb59a3297
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/reservations/1/retrait
+        name: Retrait Reservation
+        meta:
+          id: req_7cb1520f16b440a5ac9eca9b1a410a9a
+          created: 1744727462060
+          modified: 1745582619290
+          isPrivate: false
+          sortKey: -1744726910823.5312
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+              "date_retrait": "2023-10-02T10:00:00Z",
+              "kilometrage": 91433,
+              "niveau_essence": "Plein",
+              "etat_exterieur": "bon",
+              "etat_interieur": "bon",
+              "commentaire": "Le véhicule est en bon état général. Légère rayure sur l'aile droite déjà existante.",
+            	"voiture_id": 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: 6|DKJQ1N6dNcVrw0zhHpAYBQhI3hi5ipyFVPc9VhsG5f67091c
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/reservations/1/retour
+        name: Retour Reservation
+        meta:
+          id: req_7192ee254cde4a0b8a00c40a318b3bd1
+          created: 1744727536449
+          modified: 1745582809436
+          isPrivate: false
+          sortKey: -1744726904676.125
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+              "date_retour": "2024-10-02T10:00:00Z",
+              "kilometrage": 100433,
+              "niveau_essence": "Plein",
+              "etat_exterieur": "bon",
+              "etat_interieur": "bon",
+              "commentaire": "Le véhicule est en bon état général. Légère rayure sur l'aile droite déjà existante."
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: 6|DKJQ1N6dNcVrw0zhHpAYBQhI3hi5ipyFVPc9VhsG5f67091c
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://127.0.0.1:8000/api/reservations/avenant
+        name: Create avenant
+        meta:
+          id: req_feef0d32fd3d49ab8de810e74db27183
+          created: 1745334136338
+          modified: 1745345004927
+          isPrivate: false
+          sortKey: -1744726916970.9375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"detail_penalite_avenant" : "test",
+            	"montant_a_payer_avenant" : 500,
+            	"idReservation" : 1
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 4|Vwv4IcEdUAOmtxURiW78ORZDwlu9AQYI9SCAMBgD1a86a770
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Facturation Client
+    meta:
+      id: fld_b809b335ac0448efb5337ad4fec9b8cb
+      created: 1745149097155
+      modified: 1745149097155
+      sortKey: -1745149097155
+    children:
+      - url: http://127.0.0.1:8000/api/clients/2/facturation
+        name: Facturation show client
+        meta:
+          id: req_bec1be88dd444241af59881b2d540422
+          created: 1745149100767
+          modified: 1745149404859
+          isPrivate: false
+          sortKey: -1745149100767
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          type: bearer
+          token: 54|5lqxthHx5x9f5fIv8Yt0yodpjdXdMrKSrNkgDitF96805654
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_bf2fe5bf32f3c136de40205db780d3ec06df8a46
+    created: 1744548390435
+    modified: 1744887506283
+  cookies:
+    - key: XSRF-TOKEN
+      value: eyJpdiI6InFtM3BENmRtbjdXb1c2T0hpeWhNYXc9PSIsInZhbHVlIjoiWUN3NFhwVkNhVTRFTHZ1U2t4Sm9tdDFIQzRWbGtXWkljbVhMU3dUS2VIQXpmdU4rVEEzL0UwQUJQTUZCRnJhS2k1MitiQlVveXN4UFpValZTYlFKaHZGTUhmelpwRUd6QzA1TWNHYWRFSlZYeWl0V3dGK2pFZXBDK3QwMUh1bFgiLCJtYWMiOiIwNzU0NjZhMTEyZjkxNDYwYjI2OTM4MDRmZDhmMjA1ODRkOWFkMWFjNWQ0ODEyNDBjNDY5N2JiMzYyMWE5YjZlIiwidGFnIjoiIn0%3D
+      maxAge: 7200
+      domain: 127.0.0.1
+      path: /
+      hostOnly: true
+      creation: 2025-04-13T12:48:19.756Z
+      lastAccessed: 2025-04-17T10:58:26.282Z
+      sameSite: lax
+      id: 2a4a6f6b-cb7d-48c2-bc8e-f2968f639788
+    - key: laravel_session
+      value: eyJpdiI6IlZadmNQbWJBK3J2MG53MnhFakJPTkE9PSIsInZhbHVlIjoiRFBicjhyUi9oOHdFK0lPcmxqSzkxSnJWM3lzK1JLbVlIbm9kdnpHYVpqUE85d2RSQXJUMlh2Qno0KzhSVlpGMVdsU2p1REZXT0FuM2lOOEV2WGlqbTVwTDVsdDhDSEJTeUExWnhneGdrMVFkT3o1d1NNV2I2MURrMkRDRUxaY1UiLCJtYWMiOiJkYjM5ZWE0OTM3YzY4ZDkwMzQyZjM1ZjZjNjlkMTJhYzNjM2ZjZDUxMGQ5YTRkZTJkODMwOTNkYzUzM2Q5NjA2IiwidGFnIjoiIn0%3D
+      maxAge: 7200
+      domain: 127.0.0.1
+      path: /
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-04-13T12:48:19.759Z
+      lastAccessed: 2025-04-17T10:58:26.283Z
+      sameSite: lax
+      id: e910fa48-c14d-48bf-afb2-19b95ad9555c
+environments:
+  name: Base Environment
+  meta:
+    id: env_bf2fe5bf32f3c136de40205db780d3ec06df8a46
+    created: 1744545102247
+    modified: 1744548390343
+    isPrivate: false

@@ -1,0 +1,37 @@
+::ng-deep .mat-step-icon {
+  background-color: grey !important;
+  color: white !important;
+  margin-left: 50px !important;
+}
+
+::ng-deep .mat-step-header:hover {
+  background-color: transparent !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .mat-step-icon-selected {
+  background-color: #f1b939 !important;
+  color: #771020 !important;
+}
+
+::ng-deep .mat-step-header .mat-step-label {
+  font-weight: bold;
+  color: #771020;
+}
+
+::ng-deep .mat-step-header.cdk-program-focused
+{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+
+
+
+
+
+
+
+

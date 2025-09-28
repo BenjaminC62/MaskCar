@@ -1,0 +1,38 @@
+<div *ngIf="!isLoaded" class="flex justify-center items-center h-64">
+  <div class="text-[#771020] text-2xl font-bold animate-pulse">Chargement...</div>
+</div>
+
+<div *ngIf="isLoaded">
+  <section class="bg-[#ede6ce] px-10 py-16">
+  <div class="rounded-xl bg-white shadow-md border border-[#771020] p-10 max-w-4xl mx-auto">
+    @if (reservation) {
+      <div class="mx-auto mb-12 max-w-2xl text-center">
+        <h1 class="mb-4 text-4xl font-extrabold text-[#771020] tracking-tight">Détails de la réservation</h1>
+        <p class="text-lg text-[#771020]/80 font-medium">Consultez les informations détaillées de votre réservation.</p>
+      </div>
+        <h2 class="text-2xl font-bold text-[#771020] mb-6 border-b pb-2 border-[#771020]/30">Informations générales</h2>
+        <div class="space-y-3 text-[#771020]/90">
+          <p><span class="font-semibold">Client :</span> {{ reservation.client.nom_client }} {{ reservation.client.prenom_client }}</p>
+          <p><span class="font-semibold">Voiture :</span> {{ reservation.voiture ? (reservation.voiture.marque + ' ' + reservation.voiture.modele) : 'Aucun véhicule attribué' }}</p>
+          <p><span class="font-semibold">Date début :</span> {{ reservation.debut_location | date:'dd-MM-yyyy' }}</p>
+          <p><span class="font-semibold">Date fin :</span> {{ reservation.fin_location | date:'dd-MM-yyyy' }}</p>
+          <p><span class="font-semibold">Statut :</span> {{ reservation.etat_location }}</p>
+          <p><span class="font-semibold">Prix total :</span> {{ reservation.prix_location ? (reservation.prix_location | currency:'EUR') : 'Prix indéterminé' }}</p>
+        </div>
+
+        <h2 class="text-2xl font-bold text-[#771020] mt-10 mb-6 border-b pb-2 border-[#771020]/30">Liste des options</h2>
+        <ul *ngIf="reservation?.liste_location?.length" class="list-disc pl-6 space-y-2 text-[#771020]/90">
+          <li *ngFor="let location of options">
+            {{ location.id }} - {{ location.nom_option }} - {{ location.montant_option | currency:'EUR' }}
+          </li>
+        </ul>
+      <div class="text-center mt-12">
+        <button [routerLink]="returnButton?.link"
+                class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+          {{ returnButton?.text }}
+        </button>
+      </div>
+    }
+  </div>
+</section>
+</div>

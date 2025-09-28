@@ -1,0 +1,94 @@
+<div *ngIf="!isLoaded" class="flex justify-center items-center h-64">
+  <div class="text-[#771020] text-2xl font-bold animate-pulse">Chargement...</div>
+</div>
+
+<div *ngIf="isLoaded">
+<section class="bg-[#ede6ce] px-6 py-16">
+  <div class="mx-auto mb-12 max-w-3xl text-center">
+    <h1 class="mb-4 text-4xl font-bold text-[#771020]">Liste des clients</h1>
+    <p class="text-lg text-[#771020]">Voici les informations des clients enregistrés sur la plateforme MaskCar.</p>
+  </div>
+  <!-- Filtres -->
+  <div class="mb-6 max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md">
+    <div class="flex flex-wrap justify-center gap-5">
+      <input
+        type="text"
+        class="rounded border border-[#771020] px-3 py-2 text-[#771020] focus:outline-none focus:ring-2 focus:ring-[#f1b939] cursor-pointer"
+        placeholder="🔠 Rechercher par prénom"
+        [(ngModel)]="filters.prenom_client"
+        (ngModelChange)="loadClients()" />
+
+      <input
+        type="text"
+        class="rounded border border-[#771020] px-3 py-2 text-[#771020] focus:outline-none focus:ring-2 focus:ring-[#f1b939] cursor-pointer"
+        placeholder="🔠 Rechercher par nom"
+        [(ngModel)]="filters.nom_client"
+        (ngModelChange)="loadClients()" />
+
+      <input
+        type="text"
+        class="rounded border border-[#771020] px-3 py-2 text-[#771020] focus:outline-none focus:ring-2 focus:ring-[#f1b939] cursor-pointer"
+        placeholder="📧 Rechercher par email"
+        [(ngModel)]="filters.email_client"
+        (ngModelChange)="loadClients()" />
+
+      <button
+        (click)="resetFilters()"
+        class="rounded border-2 border-[#771020] bg-[#f1b939] px-3 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+        Réinitialiser les filtres
+      </button>
+    </div>
+  </div>
+
+  <div class="overflow-x-auto rounded-2xl bg-white shadow-lg border border-[#771020] max-w-7xl mx-auto">
+    <table class="min-w-full table-fixed text-sm">
+      <thead class="bg-[#f1b939] text-[#771020]">
+      <tr>
+        <th class="w-[8%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer" (click)="sortBy('nom_client')"><div class="flex items-center justify-center gap-1">
+          Nom <i class='bx bx-filter-alt'></i>
+        </div></th>
+        <th class="w-[8%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer" (click)="sortBy('prenom_client')"><div class="flex items-center justify-center gap-1">
+          Prénom <i class='bx bx-filter-alt'></i>
+        </div></th>
+        <th class="w-[10%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer" (click)="sortBy('email_client')"><div class="flex items-center justify-center gap-1">
+          Adresse e-mail <i class='bx bx-filter-alt'></i></div></th>
+        <th class="w-[10%] px-4 py-4 text-center font-semibold uppercase tracking-wide">Téléphone</th>
+        <th class="w-[15%] px-4 py-4 text-center font-semibold uppercase tracking-wide">Adresse</th>
+        <th class="w-[8%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer" (click)="sortBy('ville_client')"><div class="flex items-center justify-center gap-1">
+          Ville <i class='bx bx-filter-alt'></i></div></th>
+        <th class="w-[8%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer" (click)="sortBy('code_postal_client')"><div class="flex items-center justify-center gap-1">
+          Code Postal <i class='bx bx-filter-alt'></i></div></th>
+        <th class="w-[8%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer" (click)="sortBy('pays_client')"><div class="flex items-center justify-center gap-1">
+          Pays <i class='bx bx-filter-alt'></i></div></th>
+        <th class="w-[15%] px-4 py-4 text-center font-semibold uppercase tracking-wide">Modifier</th>
+        <th class="w-[15%] px-4 py-4 text-center font-semibold uppercase tracking-wide">Détails</th>
+      </tr>
+      </thead>
+      <tbody class="divide-y divide-[#ede6ce] text-[#771020] bg-white">
+        @for (client of clients(); track client.id) {
+          <tr class="hover:bg-[#fff0c2] transition-colors duration-200">
+            <td class="w-[8%] px-4 py-4 h-16 text-center">{{ client.nom_client }}</td>
+            <td class="w-[8%] px-4 py-4 h-16 text-center">{{ client.prenom_client }}</td>
+            <td class="w-[10%] px-4 py-4 h-16 text-center">{{ client.email_client }}</td>
+            <td class="w-[10%] px-4 py-4 h-16 text-center">{{ client.tel_client }}</td>
+            <td class="w-[20%] px-4 py-4 h-16 text-center">{{ client.num_rue_client }} {{ client.nom_rue_client }}</td>
+            <td class="w-[8%] px-4 py-4 h-16 text-center">{{ client.ville_client }}</td>
+            <td class="w-[8%] px-4 py-4 h-16 text-center">{{ client.code_postal_client }}</td>
+            <td class="w-[8%] px-4 py-4 h-16 text-center">{{ client.pays_client }}</td>
+            <td class="w-[10%] px-4 py-4 h-16 text-center">
+              <a [routerLink]="['/update-client', client.id]" class="cursor-pointer">
+                <i class='bx bx-edit-alt text-3xl text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+              </a>
+            </td>
+            <td class="w-[10%] px-4 py-4 h-16 text-center">
+              <a [routerLink]="['/detail-client', client.id]" class="cursor-pointer">
+                <i class='bx bx-search text-3xl text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>

@@ -1,0 +1,139 @@
+<section class="min-h-screen bg-[#ede6ce] flex items-center justify-center px-4 py-12">
+  <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-4xl border border-[#771020]">
+    <h1 class="text-3xl font-bold text-[#771020] mb-6 text-center">Création du retrait</h1>
+      <mat-horizontal-stepper [disableRipple]="true" [linear]="true" class="bg-[#ede6ce] p-6 rounded-lg shadow-md mb-15">
+          <mat-step [stepControl]="selectionForm" label="Choix du véhicule">
+              @if(selectionForm){
+                  <form [formGroup]="selectionForm">
+                      <mat-form-field class="w-full">
+                          <mat-label>Choisissez un véhicule</mat-label>
+                          <mat-select formControlName="voiture" required (selectionChange)="selectionnerVoiture($event.value)">
+                              <mat-option *ngIf="!voituresDisponibles?.data?.length" disabled>Chargement des véhicules...</mat-option>
+                              @for (voiture of voituresDisponibles?.data; track voiture) {
+                                  <mat-option [value]="voiture">
+                                      {{ voiture.marque }} {{ voiture.modele }} - {{ voiture.immatriculation }}
+                                  </mat-option>
+                              }
+                          </mat-select>
+                          <mat-hint *ngIf="voitureSelectionnee">
+                              Kilométrage: {{ voitureSelectionnee.kilometrage }} km | État: {{ voitureSelectionnee.etat }}
+                          </mat-hint>
+                        <mat-error [hidden]="!selectionForm.get('voiture')?.hasError('required') || !selectionForm.get('voiture')?.touched" class="text-sm text-red-600 mt-1">
+                          Veuillez sélectionner un véhicule.
+                        </mat-error>
+                      </mat-form-field>
+
+                      <div class="mt-6 flex justify-end">
+                          <button
+                                  matStepperNext
+                                  (click)="onNextStep(selectionForm)"
+                                  class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+                              Suivant
+                          </button>
+                      </div>
+                  </form>
+              }
+          </mat-step>
+
+
+          <mat-step [stepControl]="retraitForm" label="Saisie du retrait">
+              <form [formGroup]="retraitForm" class="bg-white p-6 rounded-lg shadow-md space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <mat-form-field>
+                        <mat-label>Kilométrage</mat-label>
+                        <input matInput formControlName="kilometrage" required>
+                      <mat-error [hidden]="!retraitForm.get('kilometrage')?.hasError('required') || !retraitForm.get('kilometrage')?.touched" class="text-sm text-red-600 mt-1">
+                        Le kilométrage est requis.
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>Niveau d'essence</mat-label>
+                        <mat-select formControlName="niveau_essence" required>
+                            @for (option of niveau_essence_values; track option) {
+                                <mat-option [value]="option.value">
+                                    {{option.viewValue}}
+                                </mat-option>
+                            }
+                        </mat-select>
+                      <mat-error [hidden]="!retraitForm.get('niveau_essence')?.hasError('required') || !retraitForm.get('niveau_essence')?.touched" class="text-sm text-red-600 mt-1">
+                        Le niveau d'essence est requis.
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>État intérieur</mat-label>
+                        <mat-select formControlName="etat_interieur" required>
+                            @for(option of etat_interieur_values; track option) {
+                                <mat-option [value]="option.value">
+                                    {{option.viewValue}}
+                                </mat-option>
+                            }
+                        </mat-select>
+                      <mat-error [hidden]="!retraitForm.get('etat_interieur')?.hasError('required') || !retraitForm.get('etat_interieur')?.touched" class="text-sm text-red-600 mt-1">
+                        L'état intérieur est requis.
+                      </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label>État extérieur</mat-label>
+                        <mat-select formControlName="etat_exterieur" required>
+                            @for(option of etat_exterieur_values; track option) {
+                                <mat-option [value]="option.value">
+                                    {{option.viewValue}}
+                                </mat-option>
+                            }
+                        </mat-select>
+                      <mat-error [hidden]="!retraitForm.get('etat_exterieur')?.hasError('required') || !retraitForm.get('etat_exterieur')?.touched" class="text-sm text-red-600 mt-1">
+                        L'état extérieur est requis.
+                      </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="fill" class="w-full">
+                  <mat-label>Commentaire</mat-label>
+                  <textarea matInput formControlName="commentaire" rows="3"></textarea>
+                  <mat-error [hidden]="!retraitForm.get('commentaire')?.hasError('required') || !retraitForm.get('commentaire')?.touched" class="text-sm text-red-600 mt-1">
+                    Le commentaire est requis.
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="w-full">
+                  <mat-label>Date de retrait</mat-label>
+                  <input matInput type="date" formControlName="date_retrait" />
+                  <mat-error [hidden]="!retraitForm.get('date_retrait')?.hasError('required') || !retraitForm.get('date_retrait')?.touched" class="text-sm text-red-600 mt-1">
+                    La date de retrait est requise.
+                  </mat-error>
+                </mat-form-field>
+
+
+                <div class="flex justify-between pt-4">
+                    <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">Retour</button>
+                    <button matStepperNext (click)="onNextStep(retraitForm)" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">Suivant</button>
+                </div>
+              </form>
+            </mat-step>
+
+          <mat-step label="Informations de la réservation">
+              @if (reservation){
+                  <div class="bg-white rounded-lg shadow-md p-6 space-y-4 text-[#771020]">
+                      <p><strong>Client :</strong> {{ reservation.data.reservation.client.nom_client }} {{ reservation.data.reservation.client.prenom_client }}</p>
+                      <p><strong>Numéro de réservation :</strong> {{ reservation.data.reservation.id }}</p>
+                      <p><strong>Dates :</strong> {{ reservation.data.reservation.debut_location | date:'dd-MM-yyyy'  }} → {{ reservation.data.reservation.fin_location | date:'dd-MM-yyyy' }}</p>
+                      <p><strong>Véhicule :</strong> {{ voitureSelectionnee ? (voitureSelectionnee.modele + ' ' + voitureSelectionnee.marque) : 'Pas encore sélectionné' }}</p>
+                      <strong>Options :</strong>
+                      <ul class="list-disc list-inside ml-4 text-[#771020]">
+                          @for (option of this.options; track option.id) {
+                              <li>{{ option.id }} - {{ option.nom_option }}</li>
+                          }
+                      </ul>
+                  </div>
+                  <div class="flex justify-between pt-4">
+                    <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">Retour</button>
+                      <button class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer" (click)="soumettreRetrait()">Valider le retrait</button>
+                  </div>
+              }
+          </mat-step>
+      </mat-horizontal-stepper>
+  </div>
+</section>

@@ -1,0 +1,245 @@
+<section class="min-h-screen bg-[#ede6ce] flex items-center justify-center px-4 py-12">
+  <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-4xl border border-[#771020]">
+    <h1 class="text-3xl font-bold text-[#771020] mb-6 text-center">Inscription</h1>
+    <mat-horizontal-stepper [linear]="true" [disableRipple]="true" class="space-y-5">
+
+      <!-- Étape 1 -->
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Nom*</label>
+                  <input type="text" formControlName="nom_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Nom" />
+                  <p [hidden]="!firstFormGroup.get('nom_client')?.errors?.['required'] || !firstFormGroup.get('nom_client')?.touched" class="text-sm text-red-600 mt-1">
+                      Le nom est requis.
+                  </p>
+              </div>
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Prénom*</label>
+                  <input type="text" formControlName="prenom_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Prénom" />
+                  <p [hidden]="!firstFormGroup.get('prenom_client')?.errors?.['required'] || !firstFormGroup.get('prenom_client')?.touched" class="text-sm text-red-600 mt-1">
+                      Le prénom est requis.
+                  </p>
+              </div>
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Téléphone*</label>
+                  <input type="text" formControlName="tel_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Téléphone" />
+                  <p [hidden]="!firstFormGroup.get('tel_client')?.errors?.['required'] || !firstFormGroup.get('tel_client')?.touched" class="text-sm text-red-600 mt-1">
+                      Le téléphone est requis.
+                  </p>
+                  <p [hidden]="!firstFormGroup.get('tel_client')?.errors?.['pattern'] || !firstFormGroup.get('tel_client')?.touched" class="text-sm text-red-600 mt-1">
+                    Le numéro de téléphone doit contenir exactement 10 chiffres.
+                  </p>
+              </div>
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Code postal*</label>
+                  <input type="text" formControlName="code_postal_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Code postal" />
+                  <p [hidden]="!firstFormGroup.get('code_postal_client')?.errors?.['required'] || !firstFormGroup.get('code_postal_client')?.touched" class="text-sm text-red-600 mt-1">
+                      Le code postal est requis.
+                  </p>
+              </div>
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Ville*</label>
+                  <input type="text" formControlName="ville_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Ville" />
+                  <p [hidden]="!firstFormGroup.get('ville_client')?.errors?.['required'] || !firstFormGroup.get('ville_client')?.touched" class="text-sm text-red-600 mt-1">
+                      La ville est requise.
+                  </p>
+              </div>
+            <div>
+              <label class="block mb-1 font-medium text-[#771020]">Pays*</label>
+              <input type="text" list="paysList" formControlName="pays_client" required
+                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]"
+                     placeholder="Pays"/>
+              <datalist id="paysList" #paysList></datalist>
+              <p [hidden]="!firstFormGroup.get('pays_client')?.errors?.['required'] || !firstFormGroup.get('pays_client')?.touched"
+                 class="text-sm text-red-600 mt-1">
+                Un pays valide est requis.
+              </p>
+              <p [hidden]="!firstFormGroup.get('pays_client')?.errors?.['invalidCountry'] || !firstFormGroup.get('pays_client')?.touched"
+                 class="text-sm text-red-600 mt-1">
+                Le pays que vous avez entré est invalide. Veuillez en choisir un dans la liste.
+              </p>
+            </div>
+
+            <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Nom de rue*</label>
+                  <input type="text" formControlName="nom_rue_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Nom de la rue" />
+                  <p [hidden]="!firstFormGroup.get('nom_rue_client')?.errors?.['required'] || !firstFormGroup.get('nom_rue_client')?.touched" class="text-sm text-red-600 mt-1">
+                      Le nom de la rue est requis.
+                  </p>
+              </div>
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Numéro de rue*</label>
+                  <input type="text" formControlName="num_rue_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Numéro de rue" />
+                  <p [hidden]="!firstFormGroup.get('num_rue_client')?.errors?.['required'] || !firstFormGroup.get('num_rue_client')?.touched" class="text-sm text-red-600 mt-1">
+                      Le numéro de rue est requis.
+                  </p>
+              </div>
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Date de naissance*</label>
+                  <input type="date" formControlName="date_naissance_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+                  <p [hidden]="!firstFormGroup.get('date_naissance_client')?.errors?.['required'] || !firstFormGroup.get('date_naissance_client')?.touched" class="text-sm text-red-600 mt-1">
+                      La date de naissance est requise.
+                  </p>
+              </div>
+              <div>
+                  <label class="block mb-1 font-medium text-[#771020]">Adresse e-mail*</label>
+                  <input type="email" formControlName="email_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="ex: nom@exemple.com" />
+                  <p [hidden]="!firstFormGroup.get('email_client')?.errors?.['required'] || !firstFormGroup.get('email_client')?.touched" class="text-sm text-red-600 mt-1">
+                      L'adresse e-mail est requise.
+                  </p>
+                  <p [hidden]="!firstFormGroup.get('email_client')?.errors?.['pattern'] || !firstFormGroup.get('email_client')?.touched" class="text-sm text-red-600 mt-1">
+                    L'adresse e-mail doit être valide (ex : nom&#64;exemple.com).
+                  </p>
+              </div>
+            <div class="relative">
+              <label class="block mb-1 font-medium text-[#771020]">Mot de passe*</label>
+              <div class="relative">
+                <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939] pr-10"
+                       placeholder="••••••••" />
+                <button type="button" (click)="togglePasswordVisibility()"
+                        class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-[#771020] focus:outline-none cursor-pointer">
+                  <mat-icon class="material-icons pointer-events-none">
+                    {{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
+                  </mat-icon>
+                </button>
+              </div>
+              <p [hidden]="!firstFormGroup.get('password')?.errors?.['required'] || !firstFormGroup.get('password')?.touched" class="text-sm text-red-600 mt-1">
+                Le mot de passe est requis.
+              </p>
+            </div>
+
+            <div class="relative">
+              <label class="block mb-1 font-medium text-[#771020]">Confirmer le mot de passe*</label>
+              <div class="relative">
+                <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="confirm_password" required
+                       class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939] pr-10"
+                       placeholder="••••••••" />
+                <button type="button" (click)="togglePasswordVisibility()"
+                        class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-[#771020] focus:outline-none cursor-pointer">
+                  <mat-icon class="material-icons pointer-events-none">
+                    {{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
+                  </mat-icon>
+                </button>
+              </div>
+              <p [hidden]="!firstFormGroup.get('confirm_password')?.errors?.['required'] || !firstFormGroup.get('confirm_password')?.touched" class="text-sm text-red-600 mt-1">
+                La confirmation du mot de passe est requise.
+              </p>
+              <p [hidden]="!firstFormGroup.errors?.['passwordsMismatch']" class="text-sm text-red-600 mt-1">
+                Les mots de passe ne correspondent pas.
+              </p>
+            </div>
+          </div>
+          <div class="mt-5">
+            <button  matStepperNext (click)="onNextStep(firstFormGroup)" class="w-full rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              Suivant
+            </button>
+          </div>
+          <div class="mt-6 text-center">
+            <p class="text-base text-[#771020]">
+              Vous avez déjà un compte ?
+              <a [routerLink]="'/login'" class="text-[#f1b939] font-bold hover:underline">Se connecter</a>
+            </p>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Étape 2 -->
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Numéro de permis*</label>
+            <input type="text" formControlName="num_permis_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Numéro de permis" />
+            <p [hidden]="!secondFormGroup.get('num_permis_client')?.errors?.['required'] || !secondFormGroup.get('num_permis_client')?.touched" class="text-sm text-red-600 mt-1">
+              Le numéro de permis est requis.
+            </p>
+          </div>
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Date d'obtention du permis*</label>
+            <input type="date" formControlName="date_permis_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+            <p [hidden]="!secondFormGroup.get('date_permis_client')?.errors?.['required'] || !secondFormGroup.get('date_permis_client')?.touched" class="text-sm text-red-600 mt-1">
+              La date d'obtention du permis est requise.
+            </p>
+          </div>
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Pays d'obtention*</label>
+            <input type="text" list="paysPermisList" formControlName="pays_permis_client" required
+                   class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Pays" />
+            <datalist id="paysPermisList" #paysPermisList></datalist>
+            <p [hidden]="!secondFormGroup.get('pays_permis_client')?.errors?.['required'] || !secondFormGroup.get('pays_permis_client')?.touched" class="text-sm text-red-600 mt-1">
+              Le pays d'obtention est requis.
+            </p>
+            <p [hidden]="!secondFormGroup.get('pays_permis_client')?.errors?.['invalidCountry'] || !secondFormGroup.get('pays_permis_client')?.touched"
+               class="text-sm text-red-600 mt-1">
+              Le pays d'obtention que vous avez entré est invalide. Veuillez en choisir un dans la liste.
+            </p>
+          </div>
+
+          <div class="mt-4 flex justify-between">
+            <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              Retour
+            </button>
+            <button matStepperNext (click)="onNextStep(secondFormGroup)" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              Suivant
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Étape 3 : Formulaire de Facturation -->
+      <mat-step [stepControl]="thirdFormGroup">
+        <form [formGroup]="thirdFormGroup">
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Nom de rue (facturation)*</label>
+            <input type="text" formControlName="nom_rue_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Nom de la rue" />
+            <p [hidden]="!thirdFormGroup.get('nom_rue_client')?.errors?.['required'] || !thirdFormGroup.get('nom_rue_client')?.touched" class="text-sm text-red-600 mt-1">
+              Le nom de la rue est requis.
+            </p>
+          </div>
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Numéro de rue (facturation)*</label>
+            <input type="text" formControlName="num_rue_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Numéro de rue" />
+            <p [hidden]="!thirdFormGroup.get('num_rue_client')?.errors?.['required'] || !thirdFormGroup.get('num_rue_client')?.touched" class="text-sm text-red-600 mt-1">
+              Le numéro de rue est requis.
+            </p>
+          </div>
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Code postal (facturation)*</label>
+            <input type="text" formControlName="code_postal_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Code postal" />
+            <p [hidden]="!thirdFormGroup.get('code_postal_client')?.errors?.['required'] || !thirdFormGroup.get('code_postal_client')?.touched" class="text-sm text-red-600 mt-1">
+              Le code postal est requis.
+            </p>
+          </div>
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Ville (facturation)*</label>
+            <input type="text" formControlName="ville_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Ville" />
+            <p [hidden]="!thirdFormGroup.get('ville_client')?.errors?.['required'] || !thirdFormGroup.get('ville_client')?.touched" class="text-sm text-red-600 mt-1">
+              La ville est requise.
+            </p>
+          </div>
+          <div>
+            <label class="block mb-1 font-medium text-[#771020]">Pays (facturation)*</label>
+            <input type="text" list="paysFactureList" formControlName="pays_client" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Pays" />
+            <datalist id="paysFactureList" #paysFactureList></datalist>
+            <p [hidden]="!thirdFormGroup.get('pays_client')?.errors?.['required'] || !thirdFormGroup.get('pays_client')?.touched" class="text-sm text-red-600 mt-1">
+              Le pays est requis.
+            </p>
+            <p [hidden]="!thirdFormGroup.get('pays_client')?.errors?.['invalidCountry'] || !thirdFormGroup.get('pays_client')?.touched" class="text-sm text-red-600 mt-1">
+              Le pays que vous avez entré est invalide. Veuillez en choisir un dans la liste.
+            </p>
+          </div>
+          <div class="mt-4 flex justify-between">
+            <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              Retour
+            </button>
+            <button type="submit" (click)="onNextStep(thirdFormGroup)" (click)="register()" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              S'inscrire
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+    </mat-horizontal-stepper>
+  </div>
+</section>

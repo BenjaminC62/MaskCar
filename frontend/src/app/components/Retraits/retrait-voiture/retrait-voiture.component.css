@@ -1,0 +1,63 @@
+::ng-deep .mat-step-icon {
+  background-color: grey !important;
+  color: white !important;
+  margin-left: 15px !important;
+}
+
+::ng-deep .mat-step-header:hover {
+  background-color: transparent !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .mat-step-icon-selected {
+  background-color: #f1b939 !important;
+  color: #771020 !important;
+}
+
+::ng-deep .mat-step-header .mat-step-label {
+  font-weight: bold;
+  color: #771020;
+}
+
+::ng-deep .mat-step-header.cdk-program-focused
+{
+  background-color: transparent !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+
+/* Le label du select */
+mat-form-field.custom-agence-select .mat-form-field-label {
+  color: #f1b939 !important;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* Le texte affiché dans le select */
+mat-form-field.custom-agence-select .mat-select-trigger {
+  color: #771020 !important;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* La dropdown (liste des options) */
+.mat-select-panel {
+  background-color: #fff7e8 !important;
+  border: 2px solid #f1b939;
+  border-radius: 0.5rem;
+}
+
+/* Les options elles-mêmes */
+.mat-option {
+  color: #771020 !important;
+  font-weight: 500;
+}
+
+
+
+
+
+
+

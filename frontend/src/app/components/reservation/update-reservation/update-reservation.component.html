@@ -1,0 +1,108 @@
+<section class="bg-[#ede6ce] px-10 py-16">
+  <div class="mx-auto mb-12 max-w-2xl text-center">
+  </div>
+
+  <div *ngIf="!isLoaded" class="flex justify-center items-center h-64">
+    <div class="text-[#771020] text-2xl font-bold animate-pulse">Chargement...</div>
+  </div>
+
+
+  <div *ngIf="isLoaded" class="rounded-xl bg-white shadow-md border border-[#771020] p-6 max-w-4xl mx-auto">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+    <h1 class="mb-4 text-3xl font-bold text-[#771020]">Modifier les informations de la réservation</h1>
+    <p class="text-lg text-[#771020]">Veuillez remplir les champs ci-dessous pour mettre à jour les informations de la réservation.</p>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-2 gap-6">
+      <div>
+        <label for="debut_location" class="block text-[#771020] font-semibold mb-2">Date de début*</label>
+        <input id="debut_location" formControlName="debut_location" type="date" placeholder="Date de début" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+        <div [hidden]="!(form.get('debut_location')?.touched && form.get('debut_location')?.invalid)" class="text-red-500 text-sm">
+          La date de début est requise.
+        </div>
+      </div>
+      <div>
+        <label for="fin_location" class="block text-[#771020] font-semibold mb-2">Date de fin*</label>
+        <input id="fin_location" formControlName="fin_location" type="date" placeholder="Date de fin" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+        <div [hidden]="!(form.get('fin_location')?.touched && form.get('fin_location')?.invalid)" class="text-red-500 text-sm">
+          La date de fin est requise.
+        </div>
+      </div>
+      <div>
+        <label for="agence" class="block text-[#771020] font-semibold mb-2">Agence*</label>
+        <mat-form-field class="w-full">
+          <mat-select id="agence" formControlName="agence" required>
+            @if(!agence()?.length) {
+              <mat-option disabled>Chargement des agences...</mat-option>
+            } @else {
+              @for(ag of agence(); track ag.id) {
+                <mat-option [value]="ag">
+                  {{ ag.nom_rue_agence }} ({{ ag.code_postal_agence }})
+                </mat-option>
+              }
+            }
+          </mat-select>
+        </mat-form-field>
+        <div [hidden]="!(form.get('agence')?.touched && form.get('agence')?.invalid)" class="text-red-500 text-sm">
+          L'agence est requise.
+        </div>
+      </div>
+      <div>
+        <label for="categorie" class="block text-[#771020] font-semibold mb-2">Catégorie*</label>
+        <mat-form-field class="w-full">
+          <mat-select id="categorie" formControlName="categorie" required>
+            @for(c of categorie(); track c.id) {
+              <mat-option [value]="c">
+                {{ c.type_categorie }} - {{ c.description }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <div [hidden]="!(form.get('categorie')?.touched && form.get('categorie')?.invalid)" class="text-red-500 text-sm">
+          La catégorie est requise.
+        </div>
+      </div>
+      <div>
+        <label for="options" class="block text-[#771020] font-semibold mb-2">Options*</label>
+        <mat-form-field class="w-full">
+          <mat-select id="options" formControlName="options" multiple>
+            @if(!options()?.length) {
+              <mat-option disabled>Chargement des options...</mat-option>
+            } @else {
+              @for(o of options(); track o.id) {
+                <mat-option [value]="o">
+                  {{ o.nom_option }} - {{ o.montant_option }} €
+                </mat-option>
+              }
+            }
+          </mat-select>
+        </mat-form-field>
+        <div [hidden]="!(form.get('options')?.touched && form.get('options')?.invalid)" class="text-red-500 text-sm">
+          Au moins une option est requise.
+        </div>
+      </div>
+      <div>
+        <label for="garantie" class="block text-[#771020] font-semibold mb-2">Garantie*</label>
+        <mat-form-field class="w-full">
+          <mat-select id="garantie" formControlName="garantie" required>
+            @if(!garantie()?.length) {
+              <mat-option disabled>Chargement des garanties...</mat-option>
+            } @else {
+              @for(g of garantie(); track g.id) {
+                <mat-option [value]="g">
+                  {{ g.montant_garantie }}
+                </mat-option>
+              }
+            }
+          </mat-select>
+        </mat-form-field>
+        <div [hidden]="!(form.get('garantie')?.touched && form.get('garantie')?.invalid)" class="text-red-500 text-sm">
+          La garantie est requise.
+        </div>
+      </div>
+
+      <button type="submit" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer col-span-2">
+        Enregistrer
+      </button>
+    </form>
+  </div>
+</section>

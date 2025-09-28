@@ -1,0 +1,50 @@
+<section class="bg-[#ede6ce] px-10 py-16 h-screen flex flex-col items-center justify-center">
+  <div class="text-center animate-fade-in">
+    <div class="text-[120px] font-extrabold text-[#771020] flex justify-center items-center space-x-4 mb-4">
+      <span class="animate-bounce-slow">4</span>
+      <span class="animate-shake">0</span>
+      <span class="animate-bounce-slow">4</span>
+    </div>
+    <p class="text-xl text-[#771020] mb-6">
+      Oups ! Cette page est introuvable !
+    </p>
+    <button
+      (click)="goHome()"
+      class="rounded border-2 border-[#771020] bg-[#f1b939] px-6 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+    >
+      Retour à l'accueil
+    </button>
+  </div>
+</section>
+
+<style>
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+  }
+
+  .animate-shake {
+    animation: shake 0.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 1.5s infinite;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+  }
+</style>

@@ -1,0 +1,102 @@
+<div *ngIf="!isLoaded" class="flex justify-center items-center h-64">
+  <div class="text-[#771020] text-2xl font-bold animate-pulse">Chargement...</div>
+</div>
+
+<div *ngIf="isLoaded">
+<section class="bg-[#ede6ce] px-6 py-16">
+  <div class="mx-auto mb-12 max-w-3xl text-center">
+    <h1 class="mb-4 text-4xl font-bold text-[#771020]">Liste des agences</h1>
+    <p class="text-lg text-[#771020]">Voici les informations des agences enregistrées sur la plateforme MaskCar.</p>
+  </div>
+
+  <!-- Filtres -->
+  <div class="mb-6 max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-md">
+    <div class="flex flex-wrap justify-center gap-5">
+      <input
+        type="text"
+        class="rounded border border-[#771020] px-3 py-2 text-[#771020] focus:outline-none focus:ring-2 focus:ring-[#f1b939] cursor-pointer"
+        placeholder="🔠 Rechercher par nom d'agence"
+        [(ngModel)]="filters.nom_agence"
+        (ngModelChange)="loadAgences()" />
+
+      <input
+        type="text"
+        class="rounded border border-[#771020] px-3 py-2 text-[#771020] focus:outline-none focus:ring-2 focus:ring-[#f1b939] cursor-pointer"
+        placeholder="🏙️ Rechercher par ville"
+        [(ngModel)]="filters.ville_agence"
+        (ngModelChange)="loadAgences()" />
+
+      <input
+        type="text"
+        class="rounded border border-[#771020] px-3 py-2 text-[#771020] focus:outline-none focus:ring-2 focus:ring-[#f1b939] cursor-pointer"
+        placeholder="🔢 Rechercher par code postal"
+        [(ngModel)]="filters.code_postal_agence"
+        (ngModelChange)="loadAgences()" />
+
+      <button
+        (click)="resetFilters()"
+        class="rounded border-2 border-[#771020] bg-[#f1b939] px-3 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+        Réinitialiser les filtres
+      </button>
+    </div>
+  </div>
+
+  <!-- Tableau -->
+  <div class="overflow-x-auto rounded-2xl bg-white shadow-lg border border-[#771020] max-w-7xl mx-auto">
+    <table class="min-w-full table-fixed text-sm">
+      <thead class="bg-[#f1b939] text-[#771020]">
+      <tr>
+        <th class="w-[20%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer"
+            (click)="sortBy('nom_agence')">
+          <div class="flex items-center justify-center gap-1">
+            Nom Agence <i class='bx bx-filter-alt'></i>
+          </div>
+        </th>
+        <th class="w-[20%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer"
+            (click)="sortBy('nom_rue_agence')">
+          <div class="flex items-center justify-center gap-1">
+            Nom Rue <i class='bx bx-filter-alt'></i>
+          </div>
+        </th>
+        <th class="w-[15%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer"
+            (click)="sortBy('ville_agence')">
+          <div class="flex items-center justify-center gap-1">
+            Ville <i class='bx bx-filter-alt'></i>
+          </div>
+        </th>
+        <th class="w-[15%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer"
+            (click)="sortBy('code_postal_agence')">
+          <div class="flex items-center justify-center gap-1">
+            Code Postal <i class='bx bx-filter-alt'></i>
+          </div>
+        </th>
+
+        <th class="w-[10%] px-4 py-4 text-center font-semibold uppercase tracking-wide cursor-pointer"
+            (click)="sortBy('note')">
+          <div class="flex items-center justify-center gap-1">
+            Note <i class='bx bx-filter-alt'></i>
+          </div>
+        </th>
+        <th class="w-[20%] px-4 py-4 text-center font-semibold uppercase tracking-wide">Voitures</th>
+      </tr>
+      </thead>
+      <tbody class="divide-y divide-[#ede6ce] text-[#771020] bg-white">
+        @for (agence of agences(); track agence.id) {
+          <tr class="hover:bg-[#fff0c2] transition-colors duration-200">
+            <td class="w-[20%] px-4 py-4 h-16 text-center">{{ agence.nom_agence }}</td>
+            <td class="w-[20%] px-4 py-4 h-16 text-center">{{ agence.nom_rue_agence }}</td>
+            <td class="w-[15%] px-4 py-4 h-16 text-center">{{ agence.ville_agence }}</td>
+            <td class="w-[15%] px-4 py-4 h-16 text-center">{{ agence.code_postal_agence }}</td>
+            <td class="w-[10%] px-4 py-4 h-16 text-center text-lg" [innerHTML]="getStarHtml(agence.note)"></td>
+            <td class="w-[20%] px-4 py-4 h-16 text-center">
+              <a [routerLink]="['/listeVoituresAgence', agence.id]" class="cursor-pointer">
+                <i class='bx bx-car text-3xl text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+              </a>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>

@@ -1,0 +1,129 @@
+<div *ngIf="!isLoaded" class="flex justify-center items-center h-64">
+  <div class="text-[#771020] text-2xl font-bold animate-pulse">Chargement...</div>
+</div>
+
+<div *ngIf="isLoaded">
+  <section class="bg-[#ede6ce] px-10 py-16">
+  <div class="mx-auto mb-12 max-w-2xl text-center">
+    <h1 class="mb-4 text-3xl font-bold text-[#771020]">Liste des réservations</h1>
+    <p class="text-lg text-[#771020]">Voici les informations des réservations enregistrées sur la plateforme MaskCar.</p>
+  </div>
+  @if(authService.getConnectUserRole() == 'admin' || authService.getConnectUserRole() == 'agent'){
+    <div class="mb-6 bg-white rounded-xl p-4 shadow-md border border-[#771020]">
+      <div class="flex flex-wrap gap-4 items-end">
+        <div class="flex-1">
+          <label for="searchTerm" class="block mb-2 text-sm font-medium text-[#771020]">Rechercher une réservation</label>
+          <input
+            type="text"
+            id="searchTerm"
+            placeholder="Nom, prénom du client ou numéro de réservation"
+            class="w-full px-4 py-2 border border-[#771020] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#f1b939]"
+            [(ngModel)]="searchTerm"
+            (input)="applyFilter()">
+        </div>
+        <button
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+          (click)="resetFilters()">
+          Réinitialiser
+        </button>
+      </div>
+    </div>
+  }
+
+  <div class="overflow-x-auto rounded-xl bg-white shadow-md border border-[#771020]">
+    <table class="min-w-full divide-y divide-[#771020]">
+      <thead class="bg-[#f1b939] text-[#771020]">
+      <tr>
+          <th class="px-6 py-4 text-left text-sm font-bold uppercase">Date début</th>
+          <th class="px-6 py-4 text-left text-sm font-bold uppercase">Date fin</th>
+          <th class="px-6 py-4 text-left text-sm font-bold uppercase">Etat</th>
+          <th class="px-6 py-4 text-left text-sm font-bold uppercase">Détail</th>
+          <th class="px-6 py-4 text-left text-sm font-bold uppercase">Facture</th>
+          <th class="px-6 py-4 text-left text-sm font-bold uppercase">Document Retrait</th>
+          <th class="px-6 py-4 text-left text-sm font-bold uppercase">Document Retour</th>
+          @if(authService.getConnectUserRole() == 'admin' || authService.getConnectUserRole() == 'agent'){
+              <th class="px-6 py-4 text-left text-sm font-bold uppercase">Modifier</th>
+              <th class="px-6 py-4 text-left text-sm font-bold uppercase">Retrait</th>
+              <th class="px-6 py-4 text-left text-sm font-bold uppercase">Retour</th>
+              <th class="px-6 py-4 text-left text-sm font-bold uppercase">Annuler</th>
+          }
+      </tr>
+      </thead>
+      <tbody class="divide-y divide-[#ede6ce] text-[#771020]">
+        @for (reservation of filteredReservations(); track reservation.id){
+          <tr class="hover:bg-[#fff0c2] transition">
+            <td class="px-6 py-4">{{ reservation.debut_location | date:'dd-MM-yyyy' }}</td>
+            <td class="px-6 py-4">{{ reservation.fin_location | date:'dd-MM-yyyy' }}</td>
+            <td class="px-6 py-4">{{ reservation.etat_location }}</td>
+            <td class="px-6 py-4">
+              <a [routerLink]="['/listeReservation/', reservation.id]" class="cursor-pointer">
+                <i class='bx bx-search text-3xl text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+              </a>
+            </td>
+            <td class="px-6 py-4">
+              <a [href]="'http://127.0.0.1:8000/api/reservations/telecharger-facture/' + reservation.id" download>
+                <mat-icon class="mr-2 text-[#771020]">picture_as_pdf</mat-icon>
+                Télécharger
+              </a>
+            </td>
+
+            <td class="px-6 py-4">
+              @if(reservation.etat_location === 'En cours' || reservation.etat_location === 'terminée') {
+                <a [href]="'http://127.0.0.1:8000/api/reservations/telecharger-document-retrait/' + reservation.id" download>
+                  <mat-icon class="mr-2 text-[#771020]">picture_as_pdf</mat-icon>
+                  Télécharger
+                </a>
+              } @else {
+                <span class="text-gray-400">Non disponible</span>
+              }
+            </td>
+
+            <td class="px-6 py-4">
+              @if(reservation.etat_location === 'terminée') {
+                <a [href]="'http://127.0.0.1:8000/api/reservations/telecharger-facture-retour/' + reservation.id" download>
+                  <mat-icon class="mr-2 text-[#771020]">picture_as_pdf</mat-icon>
+                  Télécharger
+                </a>
+              } @else {
+                <span class="text-gray-400">Non disponible</span>
+              }
+            </td>
+
+            @if(authService.getConnectUserRole() == 'admin' || authService.getConnectUserRole() == 'agent'){
+              <td class="px-6 py-4">
+                <a [routerLink]="['/update-reservation/', reservation.id]" class="cursor-pointer">
+                  <i class='bx bx-edit-alt text-3xl ml-3 text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+                </a>
+              </td>
+
+              <td class="px-6 py-4">
+                @if(reservation.etat_location == 'Payée'){
+                  <button [routerLink]="['/retrait-voiture', reservation.id]" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+                    Retrait
+                  </button>
+                }
+              </td>
+
+              <td class="px-6 py-4">
+                @if(reservation.etat_location == 'En cours'){
+                  <button [routerLink]="['/retour-voiture', reservation.id]" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+                    Retour
+                  </button>
+                }
+              </td>
+
+              <td class="px-6 py-4">
+                @if(reservation.etat_location != 'En cours' && reservation.etat_location != 'terminée'){
+                  <button (click)="deleteReservation(reservation.id)" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+                    Annuler
+                  </button>
+                }
+            }
+          </tr>
+        }
+
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>

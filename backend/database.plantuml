@@ -1,0 +1,170 @@
+@startuml
+
+class agences {
+   nom_agence: varchar
+   code_postal_agence: varchar
+   nom_rue_agence: varchar
+   num_rue_agence: varchar
+   ville_agence: varchar
+   note: varchar
+   created_at: datetime
+   updated_at: datetime
+}
+
+class clients {
+   nom_client: varchar
+   prenom_client: varchar
+   tel_client: varchar
+   code_postal_client: varchar
+   ville_client: varchar
+   pays_client: varchar
+   nom_rue_client: varchar
+   num_rue_client: varchar
+   email_client: varchar
+   date_naissance_client: date
+   created_at: datetime
+   updated_at: datetime
+}
+
+class categories {
+   type_categorie: varchar
+   description: varchar
+   created_at: datetime
+   updated_at: datetime
+}
+
+class avis {
+   contenu: varchar
+   note: integer
+   created_at: datetime
+   updated_at: datetime
+}
+
+class avenants {
+   detail_penalite_avenant: varchar
+   montant_a_payer_avenant: numeric
+   created_at: datetime
+   updated_at: datetime
+}
+
+class documents {
+   type_document: varchar
+   lien_document_pdf: varchar
+   created_at: datetime
+   updated_at: datetime
+}
+
+class facturations {
+   nom_rue_facturations: varchar
+   num_rue_facturations: varchar
+   code_postal_facturations: varchar
+   ville_facturations: varchar
+   pays_facturations: varchar
+   created_at: datetime
+   updated_at: datetime
+}
+
+class garanties {
+   montant_garantie: numeric
+   created_at: datetime
+   updated_at: datetime
+}
+
+class locations {
+   liste_location: text
+   debut_location: date
+   fin_location: date
+   etat_location: varchar
+   prix_location: numeric
+   created_at: datetime
+   updated_at: datetime
+}
+
+class options {
+   nom_option: varchar
+   montant_option: numeric
+   created_at: datetime
+   updated_at: datetime
+}
+
+class permis {
+   num_permis_client: varchar
+   date_permis_client: date
+   pays_permis_client: varchar
+   created_at: datetime
+   updated_at: datetime
+}
+
+class users {
+   nom: varchar
+   prenom: varchar
+   email: varchar
+   email_verified_at: datetime
+   password: varchar
+   remember_token: varchar
+   created_at: datetime
+   updated_at: datetime
+   role: varchar
+}
+
+class voitures {
+   immatriculation: varchar
+   marque: varchar
+   modele: varchar
+   kilometrage: integer
+   etat: varchar
+   image: varchar
+   prix_jour: numeric
+   created_at: datetime
+   updated_at: datetime
+}
+
+class retraits {
+   date_retrait: date
+   kilometrage: integer
+   niveau_essence: varchar
+   etat_exterieur: varchar
+   etat_interieur: varchar
+   commentaire: varchar
+   created_at: datetime
+   updated_at: datetime
+}
+
+class retours {
+   date_retour: date
+   kilometrage: integer
+   niveau_essence: varchar
+   etat_exterieur: varchar
+   etat_interieur: varchar
+   commentaire: varchar
+   created_at: datetime
+   updated_at: datetime
+}
+
+avis "0..*" -->  agences : "1..*"
+avis "0..*"  -->  clients : "1..*"
+clients "1..1" -->  users : "1..1"
+documents "1..*" --> "1..1" locations
+facturations "1..1" -->  clients : "1..*"
+locations "1..1" -->  agences  : "1..*"
+locations "0..1"  -->  avenants : "0..*"
+locations "1..1" -->  categories : "1..*"
+locations "1..1" -->  clients : "1..*"
+locations "0..1" -->  garanties : "1..1"
+locations "1..1" -->  retours  : "1..*"
+locations "1..1" -->  retraits : "1..*"
+locations "1..1" -->  voitures  : "1..*"
+locations "0..*"  -->  options  : "0..*"
+permis "1..1" -->  clients : "1..*"
+retours "1..*" -->  clients : "1..1"
+retours "1..1" -->  voitures : "1..*"
+retraits "0..*" -->  clients : "1..1"
+retraits "1..1" -->  voitures : "1..*"
+voitures "0..*" -->  agences : "1..1"
+voitures "1..*" -->  categories : "1..1"
+
+agences *-- "0..*" locations : "possède"
+locations *-- "0..*" options : "comporte"
+locations *-- "0..*" avenants : "contient"
+
+@enduml

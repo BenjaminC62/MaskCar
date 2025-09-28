@@ -1,0 +1,47 @@
+<section class="min-h-screen bg-[#ede6ce] flex items-center justify-center px-4 py-12">
+  <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-xl border border-[#771020]">
+    <h1 class="text-3xl font-extrabold text-[#771020] mb-4 text-center">Contactez-nous</h1>
+    <p class="text-lg text-[#771020]/80 font-medium mb-8">Consultez vos informations personnelles et vos réservations.</p>
+    <form (ngSubmit)="submit()" [formGroup]="form" class="space-y-5">
+      <input type="hidden" name="_captcha" value="false">
+
+      <div>
+        <label for="name" class="block mb-1 font-medium text-[#771020]">Nom*</label>
+        <input id="name" type="text" formControlName="name"
+               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]"
+               placeholder="Votre nom" required />
+        <p [hidden]="!form.get('name')?.errors?.['required'] || !form.get('name')?.touched" class="text-sm text-red-600 mt-1">
+          Le nom est requis.
+        </p>
+      </div>
+
+      <div>
+        <label for="email" class="block mb-1 font-medium text-[#771020]">Adresse e-mail*</label>
+        <input id="email" type="email" formControlName="email"
+               class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]"
+               placeholder="ex: nom@exemple.com" required />
+        <p [hidden]="!form.get('email')?.errors?.['required'] || !form.get('email')?.touched" class="text-sm text-red-600 mt-1">
+          L'adresse e-mail est requise.
+        </p>
+        <p [hidden]="!form.get('email')?.errors?.['email'] || !form.get('email')?.touched" class="text-sm text-red-600 mt-1">
+          L'adresse e-mail n'est pas valide.
+        </p>
+      </div>
+
+      <div>
+        <label for="message" class="block mb-1 font-medium text-[#771020]">Message*</label>
+        <textarea id="message" rows="4" formControlName="message"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]"
+                  placeholder="Votre message" required></textarea>
+        <p [hidden]="!form.get('message')?.errors?.['required'] || !form.get('message')?.touched" class="text-sm text-red-600 mt-1">
+          Le message est requis.
+        </p>
+      </div>
+
+      <button type="submit"
+              class="w-full rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+        Envoyer
+      </button>
+    </form>
+  </div>
+</section>
