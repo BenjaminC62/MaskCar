@@ -1,0 +1,51 @@
+<header class="flex items-center justify-between bg-[#ede6ce] px-10 py-0">
+  <nav class="flex items-center">
+    <a href="/" class="flex items-center">
+      <img src="assets/images/logo.png" class="w-40 h-auto" alt="Logo" />
+    </a>
+  </nav>
+
+  <div class="flex items-center space-x-4">
+    <!-- Non connecté -->
+    <a [routerLink]="'/login'" class="font-semibold text-[#771020] cursor-pointer px-2 text-lg" [hidden]="isLoggedIn">Connexion</a>
+    <a [routerLink]="'/register'" class="font-semibold text-[#771020] cursor-pointer px-2 text-lg" [hidden]="isLoggedIn">Inscription</a>
+
+    <!-- Connecté : menu nom + prénom -->
+    <button [matMenuTriggerFor]="userMenu"
+            class="font-semibold text-[#771020] cursor-pointer px-2 text-lg"
+            [hidden]="!isLoggedIn">
+      {{ user?.prenom }} {{ user?.nom }}
+    </button>
+
+    <mat-menu #userMenu="matMenu" class="!bg-[#ede6ce] !border-1 !border-[#771020] !rounded-md">
+
+      <!-- Rôle Agent / Admin -->
+      <button mat-menu-item [routerLink]="'/profil'" [hidden]="!isAgentOrAdmin" class="!text-[#771020]">
+        👤 Profil
+      </button>
+      <button mat-menu-item [routerLink]="'/listeClient'" [hidden]="!isAgentOrAdmin" class="!text-[#771020]">
+        👥 Clients
+      </button>
+      <button mat-menu-item [routerLink]="'/listeReservation'" [hidden]="!isAgentOrAdmin" class="!text-[#771020]">
+        📅 Réservations
+      </button>
+      <button mat-menu-item [routerLink]="'/listeAgence'" [hidden]="!isAgentOrAdmin" class="!text-[#771020]">
+        🏠 Agence
+      </button>
+
+      <!-- Rôle Client -->
+      <button mat-menu-item [routerLink]="'/profil'" [hidden]="!isClient" class="!text-[#771020]">
+        👤 Profil
+      </button>
+      <button mat-menu-item [routerLink]="'/listeAgence'" [hidden]="!isClient" class="!text-[#771020]">
+        🏠 Agence
+      </button>
+      <button mat-menu-item [routerLink]="'/contact'" class="!text-[#771020]">
+        ✉️ Contact
+      </button>
+      <button mat-menu-item (click)="logout()" class="!text-[#771020]">
+        🔒 Déconnexion
+      </button>
+    </mat-menu>
+  </div>
+</header>

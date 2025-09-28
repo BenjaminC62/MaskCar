@@ -1,0 +1,3574 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Laravel",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api"
+        }
+    ],
+    "paths": {
+        "/agences": {
+            "get": {
+                "operationId": "agences.index",
+                "tags": [
+                    "Agence"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "On retourne la collection des agences\n\n\n\nArray of `AgenceResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AgenceResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "operationId": "login",
+                "summary": "Handle the login request",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User login successfully."
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorised."
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "operationId": "register",
+                "description": "\u26a0\ufe0f Cannot generate request documentation: foreach() argument must be of type array|object, null given",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "string"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client enregistr\u00e9 avec succ\u00e8s."
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/AuthorizationException"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "operationId": "logout",
+                "summary": "Handle the logout request",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "minItems": 0,
+                                            "maxItems": 0,
+                                            "additionalItems": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Logged out successfully."
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/me": {
+            "get": {
+                "operationId": "me",
+                "summary": "Get the authenticated user's information",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "string"
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "User information."
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data",
+                                                "message"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "string"
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Client information."
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data",
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/refresh": {
+            "post": {
+                "operationId": "refresh",
+                "summary": "Get the authenticated user's information",
+                "tags": [
+                    "Auth"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "operationId": "categorie.index",
+                "tags": [
+                    "Categorie"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "On retourne la collection des categories\n\n\n\nArray of `CategorieResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CategorieResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/clients": {
+            "post": {
+                "operationId": "clients.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Client"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ClientRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "client": {
+                                                    "$ref": "#/components/schemas/ClientResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "client"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client created successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client not created"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/AuthorizationException"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "clients.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Client"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "clients": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/ClientResource"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "clients"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Clients retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Acc\u00e8s refus\u00e9"
+                                        }
+                                    },
+                                    "required": [
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/check-email/{email}": {
+            "get": {
+                "operationId": "clients.check.email",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "exists": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "exists"
+                                                    ]
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Email does not exist"
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data",
+                                                "message"
+                                            ]
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "exists": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "exists"
+                                                    ]
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Email already exists"
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data",
+                                                "message"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/clients/{id}": {
+            "get": {
+                "operationId": "clients.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "client": {
+                                                            "$ref": "#/components/schemas/ClientResource"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "client"
+                                                    ]
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Client retrieved successfully"
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data",
+                                                "message"
+                                            ]
+                                        },
+                                        {
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "clients.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "client": {
+                                                    "$ref": "#/components/schemas/ClientResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "client"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client updated successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client not updated"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/clients/{id}/facturation": {
+            "post": {
+                "operationId": "clients.store.facturation",
+                "summary": "Ajoute une facturation \u00e0 un client",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "facture": {
+                                                    "$ref": "#/components/schemas/FacturationResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "facture"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Facturation created successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Facturation not created"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "clients.update.facturation",
+                "summary": "Met \u00e0 jour une facturation d'un client",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "facture": {
+                                                    "$ref": "#/components/schemas/FacturationResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "facture"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Facturation updated successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Facturation not updated"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "clients.get.facturation",
+                "summary": "Retourne la facturation d'un client par son ID",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "facture": {
+                                                    "$ref": "#/components/schemas/FacturationResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "facture"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Facturation retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Facturation not found"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/clients/{id}/conducteur": {
+            "post": {
+                "operationId": "clients.store.conducteur",
+                "summary": "Ajoute un conducteur \u00e0 un client",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "conducteur": {
+                                                    "$ref": "#/components/schemas/PermisResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "conducteur"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Conducteur created successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Conducteur not created"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "clients.update.conducteur",
+                "summary": "Met \u00e0 jour un conducteur d'un client",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "conducteur": {
+                                                    "$ref": "#/components/schemas/PermisResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "conducteur"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Conducteur updated successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Conducteur not updated"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/clients/user/{id}": {
+            "get": {
+                "operationId": "clients.get.by.user",
+                "summary": "Retourne le client par son ID utilisateur",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "client": {
+                                                    "$ref": "#/components/schemas/ClientResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "client"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Client not found"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/clients/{id}/permis": {
+            "get": {
+                "operationId": "clients.get.permis.by.user",
+                "tags": [
+                    "Client"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "permis": {
+                                                    "$ref": "#/components/schemas/PermisResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "permis"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Permis retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Permis not found"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/garanties": {
+            "get": {
+                "operationId": "garantie.index",
+                "tags": [
+                    "Garantie"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "On retourne la collection des garanties\n\n\n\nArray of `GarantieResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/GarantieResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/options": {
+            "get": {
+                "operationId": "option.index",
+                "tags": [
+                    "Option"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "On retourne la collection des options\n\n\n\nArray of `OptionResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/OptionResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/options/{id}": {
+            "get": {
+                "operationId": "option.show",
+                "tags": [
+                    "Option"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "On retourne l'option\n\n\n\n`OptionResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/OptionResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/reservations/telecharger-facture/{idReservation}": {
+            "get": {
+                "operationId": "reservations.telecharger.facture",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "idReservation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/telecharger-document-retrait/{idReservation}": {
+            "get": {
+                "operationId": "reservations.telecharger.facture.retrait",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "idReservation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/telecharger-facture-retour/{idReservation}": {
+            "get": {
+                "operationId": "reservations.telecharger.facture.retour",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "idReservation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations": {
+            "post": {
+                "operationId": "reservations.store",
+                "summary": "Store a newly created resource in storage",
+                "tags": [
+                    "Reservation"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReservationRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "reservation": {
+                                                    "$ref": "#/components/schemas/ReservationResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "reservation"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation created successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation not created"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/AuthorizationException"
+                    }
+                }
+            },
+            "get": {
+                "operationId": "reservations.index",
+                "summary": "Display a listing of the resource",
+                "tags": [
+                    "Reservation"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "reservations": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/ReservationResource"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "reservations"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservations retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/client/{clientId}": {
+            "get": {
+                "operationId": "reservations.client",
+                "summary": "Retrieve reservations by client ID",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "clientId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "reservations": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/ReservationResource"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "reservations"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservations retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/agence/{agenceId}": {
+            "get": {
+                "operationId": "reservations.agence",
+                "summary": "Retrieve reservations by agency ID",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "agenceId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "reservations": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/ReservationResource"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "reservations"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservations retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/voiture/{voitureId}": {
+            "get": {
+                "operationId": "reservations.voiture",
+                "summary": "Retrieve reservations by vehicle ID",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "voitureId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "reservations": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "$ref": "#/components/schemas/ReservationResource"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "reservations"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservations retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/{id}": {
+            "get": {
+                "operationId": "reservations.show",
+                "summary": "Display the specified resource",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "anyOf": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "success": {
+                                                    "type": "boolean"
+                                                },
+                                                "data": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "reservation": {
+                                                            "$ref": "#/components/schemas/ReservationResource"
+                                                        }
+                                                    },
+                                                    "required": [
+                                                        "reservation"
+                                                    ]
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Reservation retrieved successfully"
+                                                }
+                                            },
+                                            "required": [
+                                                "success",
+                                                "data",
+                                                "message"
+                                            ]
+                                        },
+                                        {
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "reservations.update",
+                "summary": "Update the specified resource in storage",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "reservation": {
+                                                    "$ref": "#/components/schemas/ReservationResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "reservation"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation updated successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation not updated"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "reservations.delete",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "minItems": 0,
+                                            "maxItems": 0,
+                                            "additionalItems": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation deleted successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation not deleted"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/annule/{id}": {
+            "get": {
+                "operationId": "reservations.cancel",
+                "summary": "Cancel the specified reservation",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "minItems": 0,
+                                            "maxItems": 0,
+                                            "additionalItems": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation canceled successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Reservation not canceled"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/reservations/{id}/retrait": {
+            "post": {
+                "operationId": "reservations.retrait",
+                "summary": "Handle vehicle withdrawal for a reservation",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RetraitRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "retrait": {
+                                                    "$ref": "#/components/schemas/RetraitResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "retrait"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vehicle withdrawal recorded successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vehicle withdrawal failed"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/AuthorizationException"
+                    }
+                }
+            }
+        },
+        "/reservations/{id}/retour": {
+            "post": {
+                "operationId": "reservations.retour",
+                "summary": "Handle vehicle return for a reservation",
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RetourRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "retour": {
+                                                    "$ref": "#/components/schemas/RetourResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "retour"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vehicle return recorded successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Vehicle return failed"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/AuthorizationException"
+                    }
+                }
+            }
+        },
+        "/reservations/avenant": {
+            "post": {
+                "operationId": "reservations.avenant",
+                "tags": [
+                    "Reservation"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AvenantRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "avenant": {
+                                                    "$ref": "#/components/schemas/AvenantResource"
+                                                }
+                                            },
+                                            "required": [
+                                                "avenant"
+                                            ]
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Avenant created successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Avenant not created"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/AuthorizationException"
+                    }
+                }
+            }
+        },
+        "/voitures": {
+            "get": {
+                "operationId": "voitures.index",
+                "tags": [
+                    "Voiture"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "On retourne la collection des voitures\n\n\n\nArray of `VoitureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/VoitureResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/voitures/{id}": {
+            "get": {
+                "operationId": "voiture.getVoitureById",
+                "tags": [
+                    "Voiture"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`VoitureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/VoitureResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            },
+            "put": {
+                "operationId": "voitures.update",
+                "tags": [
+                    "Voiture"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "kilometrage": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    },
+                                    "etat": {
+                                        "type": "string",
+                                        "maxLength": 255
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Voiture updated successfully"
+                                        },
+                                        "voiture": {
+                                            "$ref": "#/components/schemas/VoitureResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "message",
+                                        "voiture"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/voitures/agence/{id}": {
+            "get": {
+                "operationId": "voitures.agence",
+                "tags": [
+                    "Voiture"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "On retourne la collection des voitures de cette agence\n\n\n\nArray of `VoitureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/VoitureResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/voitures/marque/{marque}": {
+            "get": {
+                "operationId": "voitures.marque",
+                "tags": [
+                    "Voiture"
+                ],
+                "parameters": [
+                    {
+                        "name": "marque",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "500": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Something went wrong! Process not completed"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Voiture not found"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/VoitureResource"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Voitures retrieved successfully"
+                                        }
+                                    },
+                                    "required": [
+                                        "success",
+                                        "data",
+                                        "message"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AgenceResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nom_agence": {
+                        "type": "string"
+                    },
+                    "code_postal_agence": {
+                        "type": "string"
+                    },
+                    "nom_rue_agence": {
+                        "type": "string"
+                    },
+                    "num_rue_agence": {
+                        "type": "string"
+                    },
+                    "ville_agence": {
+                        "type": "string"
+                    },
+                    "note": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "nom_agence",
+                    "code_postal_agence",
+                    "nom_rue_agence",
+                    "num_rue_agence",
+                    "ville_agence",
+                    "note",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "AgenceResource"
+            },
+            "AvenantRequest": {
+                "type": "object",
+                "properties": {
+                    "detail_penalite_avenant": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "montant_a_payer_avenant": {
+                        "type": "number",
+                        "minimum": 0
+                    }
+                },
+                "required": [
+                    "detail_penalite_avenant",
+                    "montant_a_payer_avenant"
+                ],
+                "title": "AvenantRequest"
+            },
+            "AvenantResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "detail_penalite_avenant": {
+                        "type": "string"
+                    },
+                    "montant_a_payer_avenant": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "detail_penalite_avenant",
+                    "montant_a_payer_avenant",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "AvenantResource"
+            },
+            "CategorieResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "type_categorie": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "type_categorie",
+                    "description",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "CategorieResource"
+            },
+            "ClientRequest": {
+                "type": "object",
+                "properties": {
+                    "nom_client": {
+                        "type": "string"
+                    },
+                    "prenom_client": {
+                        "type": "string"
+                    },
+                    "email_client": {
+                        "type": "string"
+                    },
+                    "tel_client": {
+                        "type": "string"
+                    },
+                    "code_postal_client": {
+                        "type": "string"
+                    },
+                    "ville_client": {
+                        "type": "string"
+                    },
+                    "pays_client": {
+                        "type": "string"
+                    },
+                    "nom_rue_client": {
+                        "type": "string"
+                    },
+                    "num_rue_client": {
+                        "type": "string"
+                    },
+                    "date_naissance_client": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "nom_client",
+                    "prenom_client",
+                    "email_client",
+                    "tel_client",
+                    "code_postal_client",
+                    "ville_client",
+                    "pays_client",
+                    "nom_rue_client",
+                    "num_rue_client",
+                    "date_naissance_client"
+                ],
+                "title": "ClientRequest"
+            },
+            "ClientResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nom_client": {
+                        "type": "string"
+                    },
+                    "prenom_client": {
+                        "type": "string"
+                    },
+                    "tel_client": {
+                        "type": "string"
+                    },
+                    "code_postal_client": {
+                        "type": "string"
+                    },
+                    "ville_client": {
+                        "type": "string"
+                    },
+                    "pays_client": {
+                        "type": "string"
+                    },
+                    "nom_rue_client": {
+                        "type": "string"
+                    },
+                    "num_rue_client": {
+                        "type": "string"
+                    },
+                    "email_client": {
+                        "type": "string"
+                    },
+                    "date_naissance_client": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/UserResource"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "nom_client",
+                    "prenom_client",
+                    "tel_client",
+                    "code_postal_client",
+                    "ville_client",
+                    "pays_client",
+                    "nom_rue_client",
+                    "num_rue_client",
+                    "email_client",
+                    "date_naissance_client",
+                    "user",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "ClientResource"
+            },
+            "FacturationResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nom_rue_facturations": {
+                        "type": "string"
+                    },
+                    "num_rue_facturations": {
+                        "type": "string"
+                    },
+                    "code_postal_facturations": {
+                        "type": "string"
+                    },
+                    "ville_facturations": {
+                        "type": "string"
+                    },
+                    "pays_facturations": {
+                        "type": "string"
+                    },
+                    "client": {
+                        "$ref": "#/components/schemas/ClientResource"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "nom_rue_facturations",
+                    "num_rue_facturations",
+                    "code_postal_facturations",
+                    "ville_facturations",
+                    "pays_facturations",
+                    "client",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "FacturationResource"
+            },
+            "GarantieResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "montant_garantie": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "montant_garantie",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "GarantieResource"
+            },
+            "OptionResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nom_option": {
+                        "type": "string"
+                    },
+                    "montant_option": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "nom_option",
+                    "montant_option",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "OptionResource"
+            },
+            "PermisResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "num_permis_client": {
+                        "type": "string"
+                    },
+                    "date_permis_client": {
+                        "type": "string"
+                    },
+                    "pays_permis_client": {
+                        "type": "string"
+                    },
+                    "client": {
+                        "$ref": "#/components/schemas/ClientResource"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "num_permis_client",
+                    "date_permis_client",
+                    "pays_permis_client",
+                    "client",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "PermisResource"
+            },
+            "ReservationRequest": {
+                "type": "object",
+                "properties": {
+                    "liste_location": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "debut_location": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "fin_location": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "prix_location": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "liste_location",
+                    "debut_location",
+                    "fin_location"
+                ],
+                "title": "ReservationRequest"
+            },
+            "ReservationResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "liste_location": {
+                        "type": "string"
+                    },
+                    "debut_location": {
+                        "type": "string"
+                    },
+                    "fin_location": {
+                        "type": "string"
+                    },
+                    "prix_location": {
+                        "type": "string"
+                    },
+                    "etat_location": {
+                        "type": "string"
+                    },
+                    "client": {
+                        "$ref": "#/components/schemas/ClientResource"
+                    },
+                    "voiture": {
+                        "$ref": "#/components/schemas/VoitureResource"
+                    },
+                    "garantie": {
+                        "$ref": "#/components/schemas/GarantieResource"
+                    },
+                    "categorie": {
+                        "$ref": "#/components/schemas/CategorieResource"
+                    },
+                    "agence": {
+                        "$ref": "#/components/schemas/AgenceResource"
+                    },
+                    "avenant_id": {
+                        "type": "string"
+                    },
+                    "retour_id": {
+                        "type": "string"
+                    },
+                    "retrait_id": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "liste_location",
+                    "debut_location",
+                    "fin_location",
+                    "prix_location",
+                    "etat_location",
+                    "client",
+                    "voiture",
+                    "garantie",
+                    "categorie",
+                    "agence",
+                    "avenant_id",
+                    "retour_id",
+                    "retrait_id",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "ReservationResource"
+            },
+            "RetourRequest": {
+                "type": "object",
+                "properties": {
+                    "date_retour": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "kilometrage": {
+                        "type": "integer"
+                    },
+                    "niveau_essence": {
+                        "type": "string"
+                    },
+                    "etat_exterieur": {
+                        "type": "string"
+                    },
+                    "etat_interieur": {
+                        "type": "string"
+                    },
+                    "commentaire": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "date_retour",
+                    "kilometrage",
+                    "niveau_essence",
+                    "etat_exterieur",
+                    "etat_interieur"
+                ],
+                "title": "RetourRequest"
+            },
+            "RetourResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "date_retour": {
+                        "type": "string"
+                    },
+                    "kilometrage": {
+                        "type": "integer"
+                    },
+                    "niveau_essence": {
+                        "type": "string"
+                    },
+                    "etat_exterieur": {
+                        "type": "string"
+                    },
+                    "etat_interieur": {
+                        "type": "string"
+                    },
+                    "commentaire": {
+                        "type": "string"
+                    },
+                    "voiture": {
+                        "$ref": "#/components/schemas/VoitureResource"
+                    },
+                    "client": {
+                        "$ref": "#/components/schemas/ClientResource"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "date_retour",
+                    "kilometrage",
+                    "niveau_essence",
+                    "etat_exterieur",
+                    "etat_interieur",
+                    "commentaire",
+                    "voiture",
+                    "client",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "RetourResource"
+            },
+            "RetraitRequest": {
+                "type": "object",
+                "properties": {
+                    "date_retrait": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "kilometrage": {
+                        "type": "integer"
+                    },
+                    "niveau_essence": {
+                        "type": "string"
+                    },
+                    "etat_exterieur": {
+                        "type": "string"
+                    },
+                    "etat_interieur": {
+                        "type": "string"
+                    },
+                    "commentaire": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "date_retrait",
+                    "kilometrage",
+                    "niveau_essence",
+                    "etat_exterieur",
+                    "etat_interieur"
+                ],
+                "title": "RetraitRequest"
+            },
+            "RetraitResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "date_retrait": {
+                        "type": "string"
+                    },
+                    "kilometrage": {
+                        "type": "integer"
+                    },
+                    "niveau_essence": {
+                        "type": "string"
+                    },
+                    "etat_exterieur": {
+                        "type": "string"
+                    },
+                    "etat_interieur": {
+                        "type": "string"
+                    },
+                    "commentaire": {
+                        "type": "string"
+                    },
+                    "client_id": {
+                        "$ref": "#/components/schemas/ClientResource"
+                    },
+                    "voiture": {
+                        "$ref": "#/components/schemas/VoitureResource"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "date_retrait",
+                    "kilometrage",
+                    "niveau_essence",
+                    "etat_exterieur",
+                    "etat_interieur",
+                    "commentaire",
+                    "client_id",
+                    "voiture",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "RetraitResource"
+            },
+            "Role": {
+                "type": "string",
+                "enum": [
+                    "admin",
+                    "agent",
+                    "client"
+                ],
+                "title": "Role"
+            },
+            "UserResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nom": {
+                        "type": "string"
+                    },
+                    "prenom": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "$ref": "#/components/schemas/Role"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "nom",
+                    "prenom",
+                    "email",
+                    "role",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "UserResource"
+            },
+            "VoitureResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "immatriculation": {
+                        "type": "string"
+                    },
+                    "marque": {
+                        "type": "string"
+                    },
+                    "modele": {
+                        "type": "string"
+                    },
+                    "kilometrage": {
+                        "type": "integer"
+                    },
+                    "etat": {
+                        "type": "string"
+                    },
+                    "image": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "prix_jour": {
+                        "type": "string"
+                    },
+                    "agence": {
+                        "$ref": "#/components/schemas/AgenceResource"
+                    },
+                    "categorie": {
+                        "$ref": "#/components/schemas/CategorieResource"
+                    },
+                    "created_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "id",
+                    "immatriculation",
+                    "marque",
+                    "modele",
+                    "kilometrage",
+                    "etat",
+                    "image",
+                    "prix_jour",
+                    "agence",
+                    "categorie",
+                    "created_at",
+                    "updated_at"
+                ],
+                "title": "VoitureResource"
+            }
+        },
+        "responses": {
+            "AuthenticationException": {
+                "description": "Unauthenticated",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
+                        }
+                    }
+                }
+            },
+            "AuthorizationException": {
+                "description": "Authorization error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

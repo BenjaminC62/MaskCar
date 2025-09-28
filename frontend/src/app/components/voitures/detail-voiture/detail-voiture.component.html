@@ -1,0 +1,28 @@
+<div *ngIf="!isLoaded" class="flex justify-center items-center h-64">
+  <div class="text-[#771020] text-2xl font-bold animate-pulse">Chargement...</div>
+</div>
+
+<div *ngIf="isLoaded">
+  <section class="bg-[#ede6ce] px-10 py-16">
+  <div class="rounded-xl bg-white shadow-md border border-[#771020] p-6 max-w-4xl mx-auto text-base text-[#771020]">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-[#771020]">Détails de la voiture</h2>
+    </div>
+    <div class="flex">
+      <div class="w-1/2 pr-4">
+        <p class="mb-4"><span class="font-medium">Id :</span> {{ voitureData?.id }}</p>
+        <p class="mb-4"><span class="font-medium">Marque :</span> {{ voitureData?.marque }}</p>
+        <p class="mb-4"><span class="font-medium">Modèle :</span> {{ voitureData?.modele }}</p>
+        <p class="mb-4"><span class="font-medium">Kilométrage :</span> {{ voitureData?.kilometrage }}</p>
+        <p class="mb-4"><span class="font-medium">État :</span> {{ voitureData?.etat }}</p>
+        <p class="mb-4"><span class="font-medium">Prix jour :</span> {{ voitureData?.prix_jour }}</p>
+        <p class="mb-4"><span class="font-medium">Agence :</span> {{ voitureData?.agence?.nom_agence }}</p>
+        <p class="mb-4"><span class="font-medium">Catégorie :</span> {{ voitureData?.categorie?.type_categorie }}</p>
+      </div>
+      <div class="w-1/2 flex items-center">
+        <img [src]="voitureData?.image" alt="Image de la voiture" class="w-full h-auto rounded-lg border border-[#771020]" />
+      </div>
+    </div>
+  </div>
+</section>
+</div>

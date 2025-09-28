@@ -1,0 +1,567 @@
+<section class="min-h-screen bg-[#ede6ce] flex items-center justify-center px-4 py-12">
+  <div class="bg-white shadow-lg rounded-lg p-10 w-full max-w-4xl border border-[#771020]">
+    <h1 class="text-3xl font-bold text-[#771020] mb-6 text-center">Création de réservation</h1>
+<mat-horizontal-stepper #stepper [linear]="true" [disableRipple]="true" class="bg-[#ede6ce] p-6 rounded-lg shadow-md mb-15">
+
+  <!-- Agence -->
+  <mat-step [stepControl]="agenceForm">
+    <h2
+      [ngStyle]="{
+      'font-size': '1.75rem',
+      'color': '#771020',
+      'margin-bottom': '1rem',
+      'font-weight': '700',
+      'text-shadow': '0px 1px 1px rgba(0,0,0,0.1)'
+    }"
+    >
+      ✨ Choix de l'agence
+    </h2>
+
+    <form [formGroup]="agenceForm">
+      <mat-form-field
+        appearance="fill"
+        class="w-full"
+        [ngStyle]="{
+    'background': 'linear-gradient(135deg, rgba(241,185,57,0.15), rgba(255,255,255,0.9))',
+    'border-radius': '16px',
+    'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.05)',
+    'padding': '1rem',
+    'overflow': 'hidden'
+  }"
+      >
+        <mat-label class="agence-label">🏢 Choisissez une agence</mat-label>
+
+        <mat-select
+          formControlName="agence"
+          required
+          panelClass="ultra-panel"
+          [ngStyle]="{
+      'background-color': '#fff',
+      'border-radius': '8px',
+      'color': '#771020',
+      'font-weight': '600',
+      'padding': '0.6rem',
+      'box-shadow': 'inset 0 0 5px rgba(0,0,0,0.05)',
+      'transition': 'all 0.3s ease'
+    }"
+        >
+          @if (!agence()?.length) {
+            <mat-option disabled>
+              <em style="color: #aaa;">Chargement des agences...</em>
+            </mat-option>
+          } @else {
+            @for (ag of agence(); track ag.id) {
+              <mat-option
+                [value]="ag"
+                [ngStyle]="{
+            'padding': '0.75rem 1rem',
+            'font-weight': '500',
+            'color': '#333'
+          }"
+              >
+                🏠 {{ ag.nom_rue_agence }} ({{ ag.code_postal_agence }})
+              </mat-option>
+            }
+          }
+        </mat-select>
+
+        <mat-error
+          [hidden]="!agenceForm.get('agence')?.hasError('required')"
+          class="text-sm text-red-600 mt-1"
+        >
+          Le choix de l'agence est requis.
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+
+    <div class="mt-6 flex justify-end">
+      <button
+        matStepperNext
+        (click)="onNextStep(agenceForm)"
+        class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+      >
+        Suivant
+      </button>
+    </div>
+  </mat-step>
+
+
+  <!-- Dates -->
+  <mat-step [stepControl]="datesForm">
+    <h2 class="text-xl font-semibold mb-6 mt-4 text-[#771020]">📅 Dates de location</h2>
+
+    <form [formGroup]="datesForm">
+      <div>
+        <label class="date-label block mb-1 font-medium text-[#771020]">🗓️ Date de début*</label>
+        <input
+          type="date"
+          formControlName="date_debut"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]"
+        />
+        <p [hidden]="!datesForm.get('date_debut')?.errors?.['required'] || !datesForm.get('date_debut')?.touched" class="text-sm text-red-600 mt-1">
+          La date de début est requise.
+        </p>
+      </div>
+
+      <div class="mt-4">
+        <label class="date-label block mb-1 font-medium text-[#771020]">📅 Date de fin*</label>
+        <input
+          type="date"
+          formControlName="date_fin"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]"
+        />
+        <p [hidden]="!datesForm.get('date_fin')?.errors?.['required'] || !datesForm.get('date_fin')?.touched" class="text-sm text-red-600 mt-1">
+          La date de fin est requise.
+        </p>
+      </div>
+
+      <div class="mt-6 flex justify-between">
+        <button
+          matStepperPrevious
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Retour
+        </button>
+        <button
+          matStepperNext
+          (click)="onNextStep(datesForm)"
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Suivant
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <!-- Catégorie -->
+  <mat-step [stepControl]="categorieForm">
+    <h2 class="text-xl font-semibold mb-6 mt-4 text-[#771020]">🚗 Catégorie de voiture</h2>
+
+    <form [formGroup]="categorieForm">
+      <mat-form-field
+        appearance="fill"
+        class="w-full"
+        [ngStyle]="{
+        'background': 'linear-gradient(135deg, rgba(241,185,57,0.15), rgba(255,255,255,0.9))',
+        'border-radius': '16px',
+        'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.05)',
+        'padding': '1rem',
+        'overflow': 'hidden'
+      }"
+      >
+        <mat-label class="categorie-label">🛣️ Choisissez une catégorie</mat-label>
+
+        <mat-select formControlName="categorie" required>
+          @for (c of categorie(); track c.id) {
+            <mat-option [value]="c">
+              {{ c.type_categorie }} - {{ c.description }}
+            </mat-option>
+          }
+        </mat-select>
+        <mat-error [hidden]="!categorieForm.get('categorie')?.hasError('required')" class="text-sm text-red-600 mt-1">
+          Le choix de la catégorie est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="mt-6 flex justify-between">
+        <button
+          matStepperPrevious
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Retour
+        </button>
+        <button
+          matStepperNext
+          (click)="onNextStep(categorieForm)"
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Suivant
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Garantie -->
+  <mat-step [stepControl]="garantieForm">
+    <h2 class="text-xl font-semibold mb-6 mt-4 text-[#771020]">🔒 Garantie</h2>
+
+    <form [formGroup]="garantieForm">
+      <mat-form-field
+        appearance="fill"
+        class="w-full"
+        [ngStyle]="{
+        'background': 'linear-gradient(135deg, rgba(241,185,57,0.15), rgba(255,255,255,0.9))',
+        'border-radius': '16px',
+        'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.05)',
+        'padding': '1rem',
+        'overflow': 'hidden'
+      }"
+      >
+        <mat-label class="garantie-label">🛡️ Choisissez une garantie</mat-label>
+
+        <mat-select formControlName="garantie" required>
+          @if (!garantie()?.length) {
+            <mat-option disabled>Chargement des garanties...</mat-option>
+          } @else {
+            @for (g of garantie(); track g.id) {
+              <mat-option [value]="g">
+                {{ g.montant_garantie }}
+              </mat-option>
+            }
+          }
+        </mat-select>
+        <mat-error [hidden]="!garantieForm.get('garantie')?.hasError('required')" class="text-sm text-red-600 mt-1">
+          Le choix de la garantie est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="mt-6 flex justify-between">
+        <button
+          matStepperPrevious
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Retour
+        </button>
+        <button
+          matStepperNext
+          (click)="onNextStep(garantieForm)"
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Suivant
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- Options -->
+  <mat-step [stepControl]="optionsForm">
+    <h2 class="text-xl font-semibold mb-6 mt-4 text-[#771020]">⚙️ Options</h2>
+
+    <form [formGroup]="optionsForm">
+      <mat-form-field
+        appearance="fill"
+        class="w-full"
+        [ngStyle]="{
+        'background': 'linear-gradient(135deg, rgba(241,185,57,0.15), rgba(255,255,255,0.9))',
+        'border-radius': '16px',
+        'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.05)',
+        'padding': '1rem',
+        'overflow': 'hidden'
+      }"
+      >
+        <mat-label class="options-label">🔧 Choisissez des options</mat-label>
+
+        <mat-select formControlName="options" multiple required>
+          @if (!options()?.length) {
+            <mat-option disabled>Chargement des options...</mat-option>
+          } @else {
+            @for (o of options(); track o.id) {
+              <mat-option [value]="o">
+                {{ o.nom_option }} - {{ o.montant_option }} €
+              </mat-option>
+            }
+          }
+        </mat-select>
+        <mat-error [hidden]="!optionsForm.get('options')?.hasError('required')" class="text-sm text-red-600 mt-1">
+          Le choix des options est requis.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="mt-6 flex justify-between">
+        <button
+          matStepperPrevious
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Retour
+        </button>
+        <button
+          matStepperNext
+          (click)="onNextStep(optionsForm)"
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer"
+        >
+          Suivant
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <!-- Identification -->
+
+  <mat-step>
+    <div [hidden]="authService.isLoggedIn()">
+      <form [formGroup]="identificationForm">
+        <!-- Contenu pour les utilisateurs non connectés -->
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Nom*</label>
+          <input type="text" [readonly]="isIdentified" formControlName="nom" required placeholder="Nom" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('nom')?.errors?.['required'] || !identificationForm.get('nom')?.touched" class="text-sm text-red-600 mt-1">
+            Le nom est requis.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Prénom*</label>
+          <input type="text" [readonly]="isIdentified" formControlName="prenom" required placeholder="Prénom" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('prenom')?.errors?.['required'] || !identificationForm.get('prenom')?.touched" class="text-sm text-red-600 mt-1">
+            Le prénom est requis.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Téléphone*</label>
+          <input type="tel" [readonly]="isIdentified" formControlName="tel" required placeholder="Numéro de téléphone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('tel')?.errors?.['required'] || !identificationForm.get('tel')?.touched" class="text-sm text-red-600 mt-1">
+            Le numéro de téléphone est requis.
+          </p>
+          <p [hidden]="!identificationForm.get('tel')?.errors?.['pattern'] || !identificationForm.get('tel')?.touched" class="text-sm text-red-600 mt-1">
+            Le numéro de téléphone doit contenir exactement 10 chiffres.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Code Postal*</label>
+          <input type="text" [readonly]="isIdentified" formControlName="code_postal" required placeholder="Code postal" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('code_postal')?.errors?.['required'] || !identificationForm.get('code_postal')?.touched" class="text-sm text-red-600 mt-1">
+            Le code postal est requis.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Ville*</label>
+          <input type="text" [readonly]="isIdentified" formControlName="ville" required placeholder="Ville" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('ville')?.errors?.['required'] || !identificationForm.get('ville')?.touched" class="text-sm text-red-600 mt-1">
+            La ville est requise.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Pays*</label>
+          <input type="text" list="paysList" formControlName="pays" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Pays" />
+          <datalist id="paysList" #paysList></datalist>
+          <p [hidden]="!identificationForm.get('pays')?.errors?.['required'] || !identificationForm.get('pays')?.touched" class="text-sm text-red-600 mt-1">
+            Le pays est requis.
+          </p>
+          <p [hidden]="!identificationForm.get('pays')?.errors?.['invalidCountry'] || !identificationForm.get('pays')?.touched" class="text-sm text-red-600 mt-1">
+            Le pays que vous avez entré est invalide. Veuillez en choisir un dans la liste.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Nom de rue*</label>
+          <input type="text" [readonly]="isIdentified" formControlName="nom_rue" required placeholder="Nom de rue" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('nom_rue')?.errors?.['required'] || !identificationForm.get('nom_rue')?.touched" class="text-sm text-red-600 mt-1">
+            Le nom de rue est requis.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Numéro de rue*</label>
+          <input type="text" [readonly]="isIdentified" formControlName="numero_rue" required placeholder="Numéro de rue" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('numero_rue')?.errors?.['required'] || !identificationForm.get('numero_rue')?.touched" class="text-sm text-red-600 mt-1">
+            Le numéro de rue est requis.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Date de naissance*</label>
+          <input type="date" [readonly]="isIdentified" formControlName="date_naissance" required placeholder="Date de naissance" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('date_naissance')?.errors?.['required'] || !identificationForm.get('date_naissance')?.touched" class="text-sm text-red-600 mt-1">
+            La date de naissance est requise.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <label class="block mb-1 font-medium text-[#771020]">Adresse e-mail*</label>
+          <input type="email" [readonly]="isIdentified" formControlName="email" required placeholder="ex: nom@exemple.com" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+          <p [hidden]="!identificationForm.get('email')?.errors?.['required'] || !identificationForm.get('email')?.touched" class="text-sm text-red-600 mt-1">
+            L'adresse e-mail est requise.
+          </p>
+          <p [hidden]="!identificationForm.get('email')?.errors?.['pattern'] || !identificationForm.get('email')?.touched" class="text-sm text-red-600 mt-1">
+            L'adresse e-mail doit être valide (ex : nom&#64;exemple.com).
+          </p>
+        </div>
+          @if(!(this.authService.isLoggedIn())){
+            <div class="relative">
+              <label class="block mb-1 font-medium text-[#771020]">Mot de passe*</label>
+              <div class="relative">
+                <input [type]="isPasswordVisible ? 'text' : 'password'" formControlName="password" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939] pr-10" placeholder="••••••••" />
+                <button type="button" (click)="togglePasswordVisibility()" class="absolute top-1/2 right-3 -translate-y-1/2 flex items-center text-[#771020] focus:outline-none cursor-pointer">
+                  <mat-icon class="material-icons pointer-events-none">
+                    {{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
+                  </mat-icon>
+                </button>
+              </div>
+
+              <p [hidden]="!identificationForm.get('password')?.errors?.['required'] || !identificationForm.get('password')?.touched" class="text-sm text-red-600 mt-1">
+                Le mot de passe est requis.
+              </p>
+              <p [hidden]="!identificationForm.get('password')?.errors?.['insecurePassword'] || !identificationForm.get('password')?.touched" class="text-sm text-red-600 mt-1">
+                Le mot de passe doit contenir au moins 8 caractères et inclure 3 des types suivants : majuscules, minuscules, chiffres, symboles.
+              </p>
+
+            </div>
+          }
+
+
+        <div class="flex justify-between mt-6">
+          <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">Retour</button>
+          <button matStepperNext (click)="onNextStep(identificationForm); onRegister()" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+            Continuer
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div [hidden]="!authService.isLoggedIn()">
+      <div class="p-4 bg-green-50 border border-green-200 rounded-md mb-4">
+        <p class="text-green-800">Vous êtes connecté en tant que : <strong>{{ authService.getCurrentUserNameAndFirstName() }}</strong></p>
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">Retour</button>
+        <button matStepperNext class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+          Continuer
+        </button>
+      </div>
+    </div>
+  </mat-step>
+
+  <!-- Facturation -->
+  <mat-step [stepControl]="facturationForm">
+    <h2 class="text-xl font-semibold mb-6 mt-4 text-[#771020]">Facturation</h2>
+    <form [formGroup]="facturationForm">
+      <div class="mb-4">
+        <label class="block mb-1 font-medium text-[#771020]">Numéro de rue*</label>
+        <input type="text" formControlName="numero_rue" required placeholder="Numéro de rue" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+        <p [hidden]="!facturationForm.get('numero_rue')?.errors?.['required'] || !facturationForm.get('numero_rue')?.touched" class="text-sm text-red-600 mt-1">
+          Le numéro de rue est requis.
+        </p>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1 font-medium text-[#771020]">Nom de rue*</label>
+        <input type="text" formControlName="nom_rue" required placeholder="Nom de rue" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+        <p [hidden]="!facturationForm.get('nom_rue')?.errors?.['required'] || !facturationForm.get('nom_rue')?.touched" class="text-sm text-red-600 mt-1">
+          Le nom de rue est requis.
+        </p>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1 font-medium text-[#771020]">Code postal*</label>
+        <input type="text" formControlName="code_postal" required placeholder="Code postal" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+        <p [hidden]="!facturationForm.get('code_postal')?.errors?.['required'] || !facturationForm.get('code_postal')?.touched" class="text-sm text-red-600 mt-1">
+          Le code postal est requis.
+        </p>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1 font-medium text-[#771020]">Ville*</label>
+        <input type="text" formControlName="ville" required placeholder="Ville" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" />
+        <p [hidden]="!facturationForm.get('ville')?.errors?.['required'] || !facturationForm.get('ville')?.touched" class="text-sm text-red-600 mt-1">
+          La ville est requise.
+        </p>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-1 font-medium text-[#771020]">Pays*</label>
+        <input type="text" list="paysFactureList" formControlName="pays" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#f1b939]" placeholder="Pays" />
+        <datalist id="paysFactureList" #paysFactureList></datalist>
+        <p [hidden]="!facturationForm.get('pays')?.errors?.['required'] || !facturationForm.get('pays')?.touched" class="text-sm text-red-600 mt-1">
+          Le pays est requis.
+        </p>
+        <p [hidden]="!facturationForm.get('pays')?.errors?.['invalidCountry'] || !facturationForm.get('pays')?.touched" class="text-sm text-red-600 mt-1">
+          Le pays que vous avez entré est invalide. Veuillez en choisir un dans la liste.
+        </p>
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+          Retour
+        </button>
+        <button
+          matStepperNext
+          [disabled]="facturationForm.invalid"
+          (click)="onSubmitFacturation(); onNextStep(facturationForm)"
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+          Suivant
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <div class="p-4">
+      <h2 class="text-xl font-semibold mb-4 text-[#771020]">Récapitulatif</h2>
+      <p class="mb-6">Merci de vérifier toutes les informations avant de finaliser la réservation.</p>
+
+      <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mb-6">
+        <h3 class="font-medium text-lg mb-3 text-[#771020]">Détails de votre réservation</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-gray-600 text-sm">Agence</p>
+            <p class="font-medium">
+              {{ agenceForm.value?.agence?.nom_rue_agence }} - {{ agenceForm.value?.agence?.code_postal_agence }}
+            </p>
+          </div>
+
+          <div>
+            <p class="text-gray-600 text-sm">Période de location</p>
+            <p class="font-medium">Du {{ datesForm.value?.date_debut }} au {{ datesForm.value?.date_fin }}</p>
+          </div>
+
+          <div>
+            <p class="text-gray-600 text-sm">Catégorie de véhicule</p>
+            <p class="font-medium">{{ categorieForm.value?.categorie?.type_categorie }}</p>
+          </div>
+
+          <div>
+            <p class="text-gray-600 text-sm">Garantie</p>
+            <p class="font-medium">{{ garantieForm.value?.garantie?.montant_garantie }} €</p>
+          </div>
+
+          <div class="md:col-span-2">
+            <p class="text-gray-600 text-sm">Options sélectionnées</p>
+            @if(optionsForm.value.options?.length) {
+              <ul class="list-disc ml-5">
+                @for(option of optionsForm.value.options; track option.id) {
+                  <li>{{ option.nom_option }} - {{ option.montant_option }} €</li>
+                }
+              </ul>
+            } @else {
+              <p class="font-medium">Aucune option sélectionnée</p>
+            }
+          </div>
+
+          <div class="md:col-span-2">
+            <p class="text-gray-600 text-sm">Adresse de facturation</p>
+            <p class="font-medium">
+              {{ facturationForm.value?.numero_rue }} {{ facturationForm.value?.nom_rue }},
+              {{ facturationForm.value?.code_postal }} {{ facturationForm.value?.ville }},
+              {{ facturationForm.value?.pays }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-between mt-6">
+        <button matStepperPrevious class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">Retour</button>
+        <button
+          (click)="onSubmit()"
+          class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+          Finaliser la réservation
+        </button>
+      </div>
+    </div>
+  </mat-step>
+
+
+
+
+</mat-horizontal-stepper>
+  </div>
+</section>

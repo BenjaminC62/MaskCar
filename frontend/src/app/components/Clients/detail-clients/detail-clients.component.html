@@ -1,0 +1,72 @@
+<div *ngIf="!isLoaded" class="flex justify-center items-center h-64">
+  <div class="text-[#771020] text-2xl font-bold animate-pulse">Chargement...</div>
+</div>
+
+<div *ngIf="isLoaded">
+<section class="bg-[#ede6ce] px-10 py-16">
+  <div class="rounded-xl bg-white shadow-md border border-[#771020] p-10 max-w-4xl mx-auto">
+    <div class="mx-auto mb-12 max-w-2xl text-center">
+      <h1 class="mb-4 text-4xl font-extrabold text-[#771020] tracking-tight">Détails du Client</h1>
+      <p class="text-lg text-[#771020]/80 font-medium">Consultez les informations du client et ses réservations.</p>
+    </div>
+
+    @if(clientData){
+      <h2 class="text-2xl font-bold text-[#771020] mb-6 border-b pb-2 border-[#771020]/30">Informations Client</h2>
+      <div class="space-y-3 text-[#771020]/90">
+        <p><span class="font-semibold">Nom :</span> {{ clientData?.nom_client || 'Non disponible' }}</p>
+        <p><span class="font-semibold">Prénom :</span> {{ clientData?.prenom_client || 'Non disponible' }}</p>
+        <p><span class="font-semibold">Email :</span> {{ clientData?.email_client || 'Non disponible' }}</p>
+        <p><span class="font-semibold">Téléphone :</span> {{ clientData?.tel_client || 'Non disponible' }}</p>
+        <p><span class="font-semibold">Adresse :</span> {{ clientData?.num_rue_client || '' }} {{ clientData?.nom_rue_client || '' }}, {{ clientData?.code_postal_client || '' }} {{ clientData?.ville_client || '' }}, {{ clientData?.pays_client || 'Non disponible' }}</p>
+        <p><span class="font-semibold">Date de naissance :</span> {{ clientData?.date_naissance_client | date: 'dd-MM-yyyy'}}</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-[#771020] mt-10 mb-6 border-b pb-2 border-[#771020]/30">Informations Permis</h2>
+      <div class="space-y-3 text-[#771020]/90">
+        <p><span class="font-semibold">Numéro :</span> {{ permis?.num_permis_client || 'Non disponible' }}</p>
+        <p><span class="font-semibold">Date :</span> {{ permis?.date_permis_client | date: 'dd-MM-yyyy' }}</p>
+        <p><span class="font-semibold">Pays :</span> {{ permis?.pays_permis_client || 'Non disponible' }}</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-[#771020] mt-10 mb-6 border-b pb-2 border-[#771020]/30">Facturation</h2>
+      <div class="space-y-3 text-[#771020]/90">
+        <p><span class="font-semibold">Adresse :</span> {{ facturation?.num_rue_facturations || '' }} {{ facturation?.nom_rue_facturations || '' }}</p>
+        <p><span class="font-semibold">Ville :</span> {{ facturation?.ville_facturations || '' }} {{ facturation?.code_postal_facturations || '' }}</p>
+        <p><span class="font-semibold">Pays :</span> {{ facturation?.pays_facturations || 'Non disponible' }}</p>
+      </div>
+
+      <h2 class="text-2xl font-bold text-[#771020] mt-10 mb-6 border-b pb-2 border-[#771020]/30">Mes Réservations</h2>
+      @if (reservations.length === 0) {
+        <p class="text-[#771020]/90">Aucune réservation trouvée.</p>
+      }
+      <ul class="list-disc pl-6 text-[#771020]/90 space-y-3">
+        @for (r of reservations; track r.id) {
+          <li>
+            <div class="flex justify-between items-center">
+              <div>
+                Réservation n°{{ r.id }} - {{ r.debut_location | date:'dd-MM-yyyy'}} - {{ r.fin_location | date:'dd-MM-yyyy'}}
+              </div>
+              <div class="space-x-2">
+                <button [routerLink]="['/listeReservation/', r.id]" class="cursor-pointer">
+                  <i class='bx bx-search text-3xl text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+                </button>
+                <button [routerLink]="['/update-reservation/', r.id]" class="cursor-pointer">
+                  <i class='bx bx-edit-alt text-3xl text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+                </button>
+                <button (click)="deleteReservation(r.id)" class="cursor-pointer">
+                  <i class='bx bx-x text-4xl  text-[#771020] hover:text-[#f1b939] transition-colors duration-100'></i>
+                </button>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+    @else{
+      <ng-template>
+        <p class="text-center text-gray-500">Chargement des informations...</p>
+      </ng-template>
+    }
+  </div>
+</section>
+</div>

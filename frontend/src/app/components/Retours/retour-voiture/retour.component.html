@@ -1,0 +1,185 @@
+<section class="bg-[#ede6ce] px-10 py-16">
+  <div class="mx-auto max-w-4xl rounded-xl bg-white shadow-md border border-[#771020] p-6">
+    <mat-horizontal-stepper [disableRipple]="true" [linear]="true">
+      <mat-step [stepControl]="vehiculeEtat" label="État du véhicule">
+        <form [formGroup]="vehiculeEtat" class="space-y-6 min-h-[400px]">
+          <h3 class="text-lg font-medium text-[#771020]">Mise à jour de l'état du véhicule</h3>
+
+          <mat-form-field class="w-full">
+            <mat-label>État du véhicule</mat-label>
+            <mat-select formControlName="etat_vehicule" required>
+              @for(option of getUniqueEtats(voitureSignal()); track option) {
+                <mat-option [value]="option">
+                  {{ option }}
+                </mat-option>
+              }
+            </mat-select>
+            <mat-error [hidden]="!vehiculeEtat.get('etat_vehicule')?.hasError('required') || !vehiculeEtat.get('etat_vehicule')?.touched" class="text-sm text-red-600 mt-1">
+              L'état du véhicule est requis.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Remarques supplémentaires</mat-label>
+            <textarea matInput formControlName="remarques" rows="3"></textarea>
+            <mat-error [hidden]="!vehiculeEtat.get('remarques')?.hasError('required') || !vehiculeEtat.get('remarques')?.touched" class="text-sm text-red-600 mt-1">
+              Les remarques sont requises.
+            </mat-error>
+          </mat-form-field>
+
+          <div class="flex justify-end mt-4">
+            <button matStepperNext [disabled]="vehiculeEtat.invalid" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              Suivant
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="retourForm" label="Saisie du retour">
+        <form [formGroup]="retourForm" class="space-y-6 min-h-[400px]">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>Kilométrage</mat-label>
+              <input matInput formControlName="kilometrage" />
+              <mat-error [hidden]="!retourForm.get('kilometrage')?.hasError('required') || !retourForm.get('kilometrage')?.touched" class="text-sm text-red-600 mt-1">
+                Le kilométrage est requis.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Niveau d'essence</mat-label>
+              <mat-select formControlName="niveau_essence" required>
+                @for (option of niveau_essence_values; track option) {
+                  <mat-option [value]="option.value">
+                    {{option.viewValue}}
+                  </mat-option>
+                }
+              </mat-select>
+              <mat-error [hidden]="!retourForm.get('niveau_essence')?.hasError('required') || !retourForm.get('niveau_essence')?.touched" class="text-sm text-red-600 mt-1">
+                Le niveau d'essence est requis.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>État intérieur</mat-label>
+              <mat-select formControlName="etat_interieur" required>
+                @for(option of etat_interieur_values; track option) {
+                  <mat-option [value]="option.value">
+                    {{option.viewValue}}
+                  </mat-option>
+                }
+              </mat-select>
+              <mat-error [hidden]="!retourForm.get('etat_interieur')?.hasError('required') || !retourForm.get('etat_interieur')?.touched" class="text-sm text-red-600 mt-1">
+                L'état intérieur est requis.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>État extérieur</mat-label>
+              <mat-select formControlName="etat_exterieur" required>
+                @for(option of etat_exterieur_values; track option) {
+                  <mat-option [value]="option.value">
+                    {{option.viewValue}}
+                  </mat-option>
+                }
+              </mat-select>
+              <mat-error [hidden]="!retourForm.get('etat_exterieur')?.hasError('required') || !retourForm.get('etat_exterieur')?.touched" class="text-sm text-red-600 mt-1">
+                L'état extérieur est requis.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Commentaire</mat-label>
+            <textarea matInput formControlName="commentaire" rows="3"></textarea>
+            <mat-error [hidden]="!retourForm.get('commentaire')?.hasError('required') || !retourForm.get('commentaire')?.touched" class="text-sm text-red-600 mt-1">
+              Le commentaire est requis.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Date du retour</mat-label>
+            <input matInput type="date" formControlName="date_retour" />
+            <mat-error [hidden]="!retourForm.get('date_retour')?.hasError('required') || !retourForm.get('date_retour')?.touched" class="text-sm text-red-600 mt-1">
+              La date de retour est requise.
+            </mat-error>
+          </mat-form-field>
+
+          <div class="flex justify-between pt-4">
+            <button class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer" matStepperPrevious>
+              Retour
+            </button>
+            <button matStepperNext [disabled]="retourForm.invalid" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              Suivant
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="avenantForm" label="Avenant">
+        <form [formGroup]="avenantForm" class="space-y-6 min-h-[400px]">
+          <h3 class="text-lg font-medium text-[#771020]">Souhaitez-vous créer un avenant ?</h3>
+
+          <mat-slide-toggle formControlName="creerAvenant" color="warn" (change)="toggleAvenant()">
+            Ajouter un avenant à cette réservation
+          </mat-slide-toggle>
+
+          @if(avenantForm.get('creerAvenant')?.value){
+            <div class="space-y-4 mt-4">
+              <mat-form-field class="w-full">
+                <mat-label>Détail de la pénalité</mat-label>
+                <input matInput formControlName="detail_penalite_avenant" required />
+                <mat-error [hidden]="!avenantForm.get('detail_penalite_avenant')?.hasError('required') || !avenantForm.get('detail_penalite_avenant')?.touched" class="text-sm text-red-600 mt-1">
+                  Le détail de la pénalité est requis.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="w-full">
+                <mat-label>Montant à payer</mat-label>
+                <input matInput type="number" formControlName="montant_a_payer_avenant" required />
+                <mat-error [hidden]="!avenantForm.get('montant_a_payer_avenant')?.hasError('required') || !avenantForm.get('montant_a_payer_avenant')?.touched" class="text-sm text-red-600 mt-1">
+                  Le montant à payer est requis.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          }
+
+          <div class="flex justify-between pt-4">
+            <button class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer" matStepperPrevious>
+              Retour
+            </button>
+            <button matStepperNext class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+              Suivant
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step label="Informations de la réservation">
+        @if (reservation) {
+          <div class="space-y-4 text-[#771020] min-h-[400px]">
+            <p><strong>Client :</strong> {{ reservation.data.reservation.client.nom_client }} {{ reservation.data.reservation.client.prenom_client }}</p>
+            <p><strong>Numéro de réservation :</strong> {{ reservation.data.reservation.id }}</p>
+            <p><strong>Dates :</strong> {{ reservation.data.reservation.debut_location | date:'dd-MM-yyyy' }} → {{ reservation.data.reservation.fin_location | date:'dd-MM-yyyy' }}</p>
+            <p><strong>Véhicule :</strong> {{ reservation.data.reservation.voiture?.marque }} {{ reservation.data.reservation.voiture?.modele }}</p>
+            <strong>Options :</strong>
+            <ul class="list-disc list-inside ml-4 text-[#771020]">
+              @for (option of this.options; track option.id) {
+                <li>{{ option.id }} - {{ option.nom_option }}</li>
+              }
+            </ul>
+            <p><strong>Garantie :</strong> {{ reservation.data.reservation.garantie.montant_garantie }}</p>
+          </div>
+          <button class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer" matStepperPrevious>
+            Retour
+          </button>
+          <div class="flex justify-end mt-4">
+            <button class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer" (click)="soumettreRetour()">
+              Valider le retour
+            </button>
+          </div>
+        }
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</section>

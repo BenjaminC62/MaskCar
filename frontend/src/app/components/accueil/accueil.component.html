@@ -1,0 +1,133 @@
+<section class="flex flex-col items-center justify-between bg-[#ede6ce] px-10 py-16 md:flex-row">
+  <div class="mb-10 max-w-xl md:mb-0">
+    <h1 class="mb-6 text-5xl font-bold text-[#771020]">MaskCar</h1>
+    <p class="mb-8 text-lg text-[#771020]">Louez une voiture en quelques clics, rapidement et simplement depuis notre plateforme.</p>
+    <div class="recherche flex items-center space-x-8">
+      <div class="relative w-64">
+        <input
+          type="text"
+          class="w-full h-12 px-4 py-2 rounded border border-[#771020] focus:outline-none focus:ring-2 focus:ring-[#f1b939] text-[#771020] placeholder-[#771020]"
+          placeholder="Recherchez une marque..."
+          [formControl]="marqueControl"
+          (focus)="showSuggestions = true"
+          (blur)="hideSuggestions()"
+        />
+        <ul
+          *ngIf="showSuggestions && filteredMarques().length > 0"
+          class="absolute z-10 w-full mt-1 bg-white border border-[#771020] rounded shadow-md max-h-60 overflow-auto">
+          <li
+            *ngFor="let marque of filteredMarques()"
+            (mousedown)="selectMarque(marque)"
+            class="px-4 py-2 hover:bg-[#f1b939] cursor-pointer text-[#771020]">
+            {{ marque }}
+          </li>
+        </ul>
+      </div>
+      <button class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer" (click)="rechercher()">Rechercher</button>
+    </div>
+
+
+  </div>
+
+  <div class="md:w-1/2">
+    <img src="./assets/images/v5-removebg-preview.png" alt="Voiture rouge" class="w-200 h-auto" />
+  </div>
+</section>
+
+<section class="bg-[#FEF8E9] px-10 py-16 w-full">
+  <div class="mx-auto mb-12 text-center">
+    <h1 class="mb-4 text-3xl font-bold text-[#771020]">Nos voitures</h1>
+    <p class="text-lg text-[#771020]">
+      Découvrez notre sélection de véhicules disponibles à la location. Confort, style et performance vous attendent.
+    </p>
+  </div>
+
+  <div class="relative w-full">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div *ngFor="let category of visibleCategories; let i = index" class="overflow-hidden rounded-xl bg-white p-6 shadow-md">
+          <img [src]="visibleImages[i]" alt="Voiture" class="mx-auto w-full h-48 object-contain" />
+          <h2 class="mb-2 text-xl font-semibold text-[#771020]">
+            {{ category.type_categorie }}
+          </h2>
+          <p class="mb-4 text-[#771020]">
+            {{ category.description }}
+          </p>
+          <button [routerLink]="'/createReservation'" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">
+            Réserver
+          </button>
+        </div>
+      </div>
+
+    <!-- Pagination centrée + Flèches à droite, sur la même ligne -->
+    <div class="flex items-center justify-between mt-6 w-full px-10">
+      <!-- Bloc vide pour équilibrer la ligne -->
+      <div class="w-1/3"></div>
+
+      <!-- Pagination centrée -->
+      <div class="flex justify-center items-center space-x-2 w-1/3">
+        <div class="flex justify-center items-center space-x-2 w-1/3">
+          @for (page of totalPages; track page; let i = $index) {
+            <div
+              class="w-3 h-3 rounded-full transition-all duration-300 cursor-pointer"
+              [class.bg-[#771020]]="currentIndex === i * 3"
+              [class.bg-[#d6b8b8]]="currentIndex !== i * 3"
+              (click)="goTo(i * 3)">
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Flèches à droite -->
+      <div class="flex justify-end items-center w-1/3">
+        <button (click)="prev()">
+          <i class="bx bxs-chevron-left text-5xl text-[#771020] cursor-pointer hover:text-[#f1b939] transition-colors duration-300"></i>
+        </button>
+        <button (click)="next()">
+          <i class="bx bxs-chevron-right text-5xl text-[#771020] cursor-pointer hover:text-[#f1b939] transition-colors duration-300"></i>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+
+<section class="bg-[#ede6ce] px-10 py-16">
+  <div class="mx-auto mb-12 max-w-2xl text-center">
+    <h1 class="mb-4 text-3xl font-bold text-[#771020]">Services disponibles</h1>
+    <p class="text-lg text-[#771020]">Gérez votre expérience de location en toute simplicité grâce à nos services.</p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="overflow-hidden rounded-xl bg-white p-6 shadow-md">
+      <img src="./assets/images/acc.png" alt="Créer un compte" class="mx-auto w-40 h-40 object-contain" />
+      <h2 class="mb-2 text-xl font-semibold text-[#771020]">Créer un compte</h2>
+      <p class="mb-4 text-[#771020]">Accédez à toutes nos fonctionnalités en créant votre espace personnel.</p>
+      <button [routerLink]="'/register'" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">S'inscrire</button>
+    </div>
+
+    <div class="overflow-hidden rounded-xl bg-white p-6 shadow-md">
+      <img src="./assets/images/car.png" alt="Réservation" class="mx-auto w-40 h-40 object-contain" />
+      <h2 class="mb-2 text-xl font-semibold text-[#771020]">Faire une réservation</h2>
+      <p class="mb-4 text-[#771020]">Choisissez votre véhicule et planifiez votre location en quelques clics.</p>
+      <button [routerLink]="'/createReservation'" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">Réserver maintenant</button>
+    </div>
+
+
+    <div class="overflow-hidden rounded-xl bg-white p-6 shadow-md">
+      <img src="./assets/images/check1.png" alt="Récupérer une voiture" class="mx-auto w-40 h-40 object-contain" />
+      <h2 class="mb-2 text-xl font-semibold text-[#771020]">En savoir plus</h2>
+      <p class="mb-4 text-[#771020]">Pour plus d'informations sur notre équipe et nos services, rendez-vous sur la page prévue à cet effet.</p>
+      <button [routerLink]="'/a-propos'" class="rounded border-2 border-[#771020] bg-[#f1b939] px-4 py-2 font-semibold text-[#771020] transition hover:bg-[#fff0c2] cursor-pointer">En savoir plus</button>
+    </div>
+  </div>
+</section>
+

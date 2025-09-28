@@ -1,0 +1,14 @@
+.mat-menu-panel {
+  background-color: #ede6ce !important;
+  border: 2px solid #771020 !important;
+  border-radius: 4px !important;
+  color: #771020 !important;
+}
+.mat-menu-item {
+  color: #771020 !important;
+}
+
+.mat-menu-item:hover {
+  background-color: #f5e9d7 !important;
+}
+
